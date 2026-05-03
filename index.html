@@ -1,0 +1,2211 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>Budget App — Joris</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{background:#F4F6F9;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+    #root{max-width:480px;margin:0 auto;min-height:100vh;position:relative}
+    input:focus{outline:none}
+    button{cursor:pointer;font-family:inherit}
+    ::-webkit-scrollbar{width:4px}
+    ::-webkit-scrollbar-track{background:transparent}
+    ::-webkit-scrollbar-thumb{background:#CBD5E0;border-radius:2px}
+    .scroll-area{overflow-y:auto;-webkit-overflow-scrolling:touch}
+  </style>
+</head>
+<body>
+<div id="root"></div>
+<script>window.__INITIAL_TX__ = [{"id": "t2", "datum": "2026-03-31", "naam": "Albert Heijn 1093 GRONINGEN NLD", "bedrag": 42.88, "afBij": "Af", "categorie": "Boodschappen"}, {"id": "t3", "datum": "2026-03-31", "naam": "Infomedics B.V.", "bedrag": 28.51, "afBij": "Af", "categorie": "Vast & verplicht"}, {"id": "t4", "datum": "2026-03-31", "naam": "NEDERLANDSE KITESURFVERENIGING", "bedrag": 40.0, "afBij": "Af", "categorie": "Gezondheid"}, {"id": "t5", "datum": "2026-03-31", "naam": "Stichting Beheer Derdengelden Peaks", "bedrag": 800.0, "afBij": "Af", "categorie": "Investeren"}, {"id": "t6", "datum": "2026-03-31", "naam": "Stichting Beheer Derdengelden Peaks", "bedrag": 5.26, "afBij": "Af", "categorie": "Investeren"}, {"id": "t7", "datum": "2026-03-31", "naam": "Amazon Prime Video UK iDeal", "bedrag": 4.99, "afBij": "Af", "categorie": "Vast & verplicht"}, {"id": "t8", "datum": "2026-03-30", "naam": "Snelstart software", "bedrag": 49.62, "afBij": "Af", "categorie": "Vast & verplicht"}, {"id": "t9", "datum": "2026-03-30", "naam": "NLOVVGJ9ZRZZ9V95ZQ www.ovpay.nl", "bedrag": 19.3, "afBij": "Af", "categorie": "Uit eten & sociaal"}, {"id": "t10", "datum": "2026-03-30", "naam": "NLOVW7JWMY996WRJVP www.ovpay.nl", "bedrag": 8.65, "afBij": "Af", "categorie": "Uit eten & sociaal"}, {"id": "t11", "datum": "2026-03-30", "naam": "NLOVD6JKQ8QZV8XJWA www.ovpay.nl", "bedrag": 14.0, "afBij": "Af", "categorie": "Uit eten & sociaal"}, {"id": "t12", "datum": "2026-03-30", "naam": "Van Tongeren via Tikkie", "bedrag": 3.35, "afBij": "Af", "categorie": "Uit eten & sociaal"}, {"id": "t13", "datum": "2026-03-30", "naam": "Menzis Zorgverzekeraar NV", "bedrag": 164.85, "afBij": "Af", "categorie": "Vast & verplicht"}, {"id": "t14", "datum": "2026-03-29", "naam": "Pollo Picante via Takeaway.com", "bedrag": 27.32, "afBij": "Af", "categorie": "Uit eten & sociaal"}, {"id": "t15", "datum": "2026-03-29", "naam": "Cafe De Blauwe Pan Amsterdam NLD", "bedrag": 25.0, "afBij": "Af", "categorie": "Uit eten & sociaal"}, {"id": "t16", "datum": "2026-03-29", "naam": "Cafe De Blauwe Pan Amsterdam NLD", "bedrag": 20.0, "afBij": "Af", "categorie": "Uit eten & sociaal"}, {"id": "t17", "datum": "2026-03-29", "naam": "Cafe De Blauwe Pan Amsterdam NLD", "bedrag": 15.5, "afBij": "Af", "categorie": "Uit eten & sociaal"}, {"id": "t18", "datum": "2026-03-29", "naam": "Cafe De Blauwe Pan Amsterdam NLD", "bedrag": 7.8, "afBij": "Af", "categorie": "Uit eten & sociaal"}, {"id": "t19", "datum": "2026-03-28", "naam": "BCK*Shell De Lepelaar LELYSTAD", "bedrag": 2.5, "afBij": "Af", "categorie": "Vast & verplicht"}, {"id": "t20", "datum": "2026-03-28", "naam": "BCK*SHELL LEMSTERHOP NLD", "bedrag": 3.6, "afBij": "Af", "categorie": "Vast & verplicht"}, {"id": "t21", "datum": "2026-03-28", "naam": "BCK*Roebert Tankstatio LELYSTAD", "bedrag": 1.0, "afBij": "Af", "categorie": "Vast & verplicht"}, {"id": "t22", "datum": "2026-03-28", "naam": "BCK*GO4 B.V. Balk NLD", "bedrag": 1.0, "afBij": "Af", "categorie": "Vast & verplicht"}, {"id": "t23", "datum": "2026-03-28", "naam": "Jumbo Paddepoel GRONINGEN NLD", "bedrag": 36.58, "afBij": "Af", "categorie": "Boodschappen"}, {"id": "t24", "datum": "2026-03-28", "naam": "Moment 65535 EEMNES NLD", "bedrag": 0.8, "afBij": "Af", "categorie": "Vast & verplicht"}, {"id": "t25", "datum": "2026-03-28", "naam": "BCN Utrecht parkeren UTRECHT NLD", "bedrag": 9.0, "afBij": "Af", "categorie": "Vast & verplicht"}, {"id": "t26", "datum": "2026-03-28", "naam": "Mol*Peakz Padel B V 31615859528", "bedrag": 12.38, "afBij": "Af", "categorie": "Gezondheid"}, {"id": "t27", "datum": "2026-03-27", "naam": "Stg Save The Children Nederland", "bedrag": 10.0, "afBij": "Af", "categorie": "Vast & verplicht"}, {"id": "t28", "datum": "2026-03-27", "naam": "Basic Fit Nederland B.V.", "bedrag": 24.99, "afBij": "Af", "categorie": "Gezondheid"}, {"id": "t29", "datum": "2026-03-27", "naam": "BELASTINGDIENST", "bedrag": -13.0, "afBij": "Bij", "categorie": "Inkomen"}, {"id": "t30", "datum": "2026-03-26", "naam": "Stichting Het Vergeten Kind", "bedrag": 10.0, "afBij": "Af", "categorie": "Vast & verplicht"}, {"id": "t31", "datum": "2026-03-25", "naam": "MAAK TECHNIEK PROCES", "bedrag": 3283.89, "afBij": "Bij", "categorie": "Inkomen"}, {"id": "t32", "datum": "2026-03-25", "naam": "BELASTINGDIENST", "bedrag": 85.0, "afBij": "Bij", "categorie": "Inkomen"}, {"id": "t33", "datum": "2026-03-24", "naam": "Stichting Beheer Derdengelden Peaks", "bedrag": 5.54, "afBij": "Af", "categorie": "Investeren"}, {"id": "t34", "datum": "2026-03-24", "naam": "Amazon EU SARL", "bedrag": 4.99, "afBij": "Af", "categorie": "Vast & verplicht"}, {"id": "t35", "datum": "2026-03-23", "naam": "Albert Heijn 1093 GRONINGEN NLD", "bedrag": 27.4, "afBij": "Af", "categorie": "Boodschappen"}, {"id": "t36", "datum": "2026-03-23", "naam": "Boneschansker via Tikkie", "bedrag": 22.25, "afBij": "Af", "categorie": "Uit eten & sociaal"}, {"id": "t37", "datum": "2026-03-22", "naam": "IKEA Groningen GRONINGEN NLD", "bedrag": 563.84, "afBij": "Af", "categorie": "Woning & verbetering"}, {"id": "t38", "datum": "2026-03-21", "naam": "Lidl 701 Groningen GRONINGEN NLD", "bedrag": 25.34, "afBij": "Af", "categorie": "Boodschappen"}, {"id": "t39", "datum": "2026-03-20", "naam": "Peaks", "bedrag": 500.0, "afBij": "Af", "categorie": "Investeren"}, {"id": "t40", "datum": "2026-03-20", "naam": "BCK*Decathlon 2224 GRONINGEN NLD", "bedrag": 29.99, "afBij": "Af", "categorie": "Vakantie"}, {"id": "t41", "datum": "2026-03-20", "naam": "IKEA Groningen GRONINGEN NLD", "bedrag": 101.48, "afBij": "Af", "categorie": "Woning & verbetering"}, {"id": "t42", "datum": "2026-03-18", "naam": "Belastingdienst", "bedrag": 85.0, "afBij": "Af", "categorie": "Vast & verplicht"}, {"id": "t43", "datum": "2026-03-18", "naam": "hollandsnieuwe", "bedrag": 7.8, "afBij": "Af", "categorie": "Vast & verplicht"}, {"id": "t44", "datum": "2026-03-17", "naam": "Houwaart via Tikkie", "bedrag": 116.8, "afBij": "Af", "categorie": "Vakantie"}, {"id": "t45", "datum": "2026-03-17", "naam": "Albert Heijn 1093 GRONINGEN NLD", "bedrag": 14.6, "afBij": "Af", "categorie": "Boodschappen"}, {"id": "t46", "datum": "2026-03-17", "naam": "Primera Selwerd GRONINGEN NLD", "bedrag": 12.5, "afBij": "Af", "categorie": "Boodschappen"}, {"id": "t47", "datum": "2026-03-17", "naam": "Stichting Beheer Derdengelden Peaks", "bedrag": 11.42, "afBij": "Af", "categorie": "Investeren"}, {"id": "t48", "datum": "2026-03-16", "naam": "T.N. Visser", "bedrag": -12.38, "afBij": "Af", "categorie": "Gezondheid"}, {"id": "t49", "datum": "2026-03-16", "naam": "Hr T Boneschansker,Mw N Velderman", "bedrag": -12.38, "afBij": "Af", "categorie": "Gezondheid"}, {"id": "t50", "datum": "2026-03-16", "naam": "Hr T Boneschansker,Mw N Velderman", "bedrag": -12.88, "afBij": "Af", "categorie": "Gezondheid"}, {"id": "t51", "datum": "2026-03-16", "naam": "WH Smith Manche Mancheste GBR", "bedrag": 5.87, "afBij": "Af", "categorie": "Vakantie"}, {"id": "t52", "datum": "2026-03-16", "naam": "Albert Heijn 1653 LUCHTHAVEN SC", "bedrag": 5.8, "afBij": "Af", "categorie": "Vakantie"}, {"id": "t53", "datum": "2026-03-16", "naam": "Hr EF Burgio", "bedrag": -12.38, "afBij": "Af", "categorie": "Gezondheid"}, {"id": "t54", "datum": "2026-03-16", "naam": "MUFC KIOSK MANCHESTER GBR", "bedrag": 4.0, "afBij": "Af", "categorie": "Vakantie"}, {"id": "t55", "datum": "2026-03-16", "naam": "Bruna 2302 Plaza Kiosk SCHIPHOL", "bedrag": 13.5, "afBij": "Af", "categorie": "Vakantie"}, {"id": "t56", "datum": "2026-03-16", "naam": "Sir Matt Busby Way Runcorn GBR", "bedrag": 47.06, "afBij": "Af", "categorie": "Vakantie"}, {"id": "t57", "datum": "2026-03-16", "naam": "Willow Catering Liverpool GBR", "bedrag": 14.12, "afBij": "Af", "categorie": "Vakantie"}, {"id": "t58", "datum": "2026-03-16", "naam": "Mol*Peakz Padel B V 31615859528", "bedrag": 49.5, "afBij": "Af", "categorie": "Gezondheid"}, {"id": "t59", "datum": "2026-03-16", "naam": "BOLT.EU/O/2603151641 LONDON GBR", "bedrag": 35.99, "afBij": "Af", "categorie": "Vakantie"}, {"id": "t60", "datum": "2026-03-16", "naam": "BOLT.EU/O/2603151059 LONDON GBR", "bedrag": 7.85, "afBij": "Af", "categorie": "Vakantie"}, {"id": "t61", "datum": "2026-03-16", "naam": "Stichting Leger des Heils", "bedrag": 8.0, "afBij": "Af", "categorie": "Vast & verplicht"}, {"id": "t62", "datum": "2026-03-15", "naam": "J.W.J. Klabbers", "bedrag": -12.88, "afBij": "Af", "categorie": "Gezondheid"}, {"id": "t63", "datum": "2026-03-15", "naam": "SPAR NO 2 OXFORD ROAD MANCHE GBR", "bedrag": 11.1, "afBij": "Af", "categorie": "Vakantie"}, {"id": "t64", "datum": "2026-03-15", "naam": "SPAR NO 2 OXFORD ROAD MANCHE GBR", "bedrag": 7.39, "afBij": "Af", "categorie": "Vakantie"}, {"id": "t65", "datum": "2026-03-15", "naam": "134 MANCHESTER PICADIL GBR", "bedrag": 20.21, "afBij": "Af", "categorie": "Vakantie"}, {"id": "t66", "datum": "2026-03-15", "naam": "The Faraday Manchester GBR", "bedrag": 14.88, "afBij": "Af", "categorie": "Vakantie"}, {"id": "t67", "datum": "2026-03-15", "naam": "BOLT.EU/O/2603141018 LONDON GBR", "bedrag": 5.85, "afBij": "Af", "categorie": "Vakantie"}, {"id": "t68", "datum": "2026-03-15", "naam": "BOLT.EU/O/2603141317 LONDON GBR", "bedrag": 59.97, "afBij": "Af", "categorie": "Vakantie"}, {"id": "t69", "datum": "2026-03-15", "naam": "BOLT.EU/O/2603141228 LONDON GBR", "bedrag": 5.68, "afBij": "Af", "categorie": "Vakantie"}, {"id": "t70", "datum": "2026-03-15", "naam": "abm Catering Limted Warwick GBR", "bedrag": 12.47, "afBij": "Af", "categorie": "Vakantie"}, {"id": "t71", "datum": "2026-03-15", "naam": "Official ManCity Shop Warwic GBR", "bedrag": 45.24, "afBij": "Af", "categorie": "Vakantie"}, {"id": "t72", "datum": "2026-03-14", "naam": "SumUp  *O.C.P GAG MAG Fleetw GBR", "bedrag": 4.71, "afBij": "Af", "categorie": "Vakantie"}, {"id": "t73", "datum": "2026-03-14", "naam": "SPAR NO 2 OXFORD ROAD MANCHE GBR", "bedrag": 6.39, "afBij": "Af", "categorie": "Vakantie"}, {"id": "t74", "datum": "2026-03-14", "naam": "Krispy Kreme Doughnuts GBR", "bedrag": 8.68, "afBij": "Af", "categorie": "Vakantie"}, {"id": "t75", "datum": "2026-03-14", "naam": "THE NORTH FACE MANCHES GBR", "bedrag": 194.14, "afBij": "Af", "categorie": "Lifestyle"}, {"id": "t76", "datum": "2026-03-14", "naam": "Selecta Netherlands B Dordrecht", "bedrag": 5.6, "afBij": "Af", "categorie": "Vakantie"}, {"id": "t77", "datum": "2026-03-14", "naam": "BOLT.EU/O/2603132218 LONDON GBR", "bedrag": 6.69, "afBij": "Af", "categorie": "Vakantie"}, {"id": "t78", "datum": "2026-03-14", "naam": "The Faraday Manchester GBR", "bedrag": 12.0, "afBij": "Af", "categorie": "Vakantie"}, {"id": "t79", "datum": "2026-03-14", "naam": "CIRCLE K D AALSCHOLVER LELYSTAD", "bedrag": 1.0, "afBij": "Af", "categorie": "Vakantie"}, {"id": "t80", "datum": "2026-03-14", "naam": "Vine Inn Manchester GBR", "bedrag": 14.59, "afBij": "Af", "categorie": "Vakantie"}, {"id": "t81", "datum": "2026-03-14", "naam": "The Faraday Manchester GBR", "bedrag": 11.77, "afBij": "Af", "categorie": "Vakantie"}, {"id": "t82", "datum": "2026-03-14", "naam": "BOLT.EU/O/2603131445 LONDON GBR", "bedrag": 27.59, "afBij": "Af", "categorie": "Vakantie"}, {"id": "t83", "datum": "2026-03-14", "naam": "HMS Host International Amsterdam", "bedrag": 10.0, "afBij": "Af", "categorie": "Vakantie"}, {"id": "t84", "datum": "2026-03-13", "naam": "IKEA Groningen GRONINGEN NLD", "bedrag": 1.78, "afBij": "Af", "categorie": "Uit eten & sociaal"}, {"id": "t85", "datum": "2026-03-13", "naam": "IKEA Groningen GRONINGEN NLD", "bedrag": 29.95, "afBij": "Af", "categorie": "Woning & verbetering"}, {"id": "t86", "datum": "2026-03-13", "naam": "Kosten OranjePakket", "bedrag": 4.0, "afBij": "Af", "categorie": "Vast & verplicht"}, {"id": "t87", "datum": "2026-03-13", "naam": "KPN B.V.", "bedrag": 45.56, "afBij": "Af", "categorie": "Vast & verplicht"}, {"id": "t88", "datum": "2026-03-12", "naam": "Mw PF Windt", "bedrag": 35.0, "afBij": "Af", "categorie": "Uit eten & sociaal"}, {"id": "t89", "datum": "2026-03-11", "naam": "Heeres via Tikkie", "bedrag": 57.1, "afBij": "Af", "categorie": "Vakantie"}, {"id": "t90", "datum": "2026-03-10", "naam": "Hr T Bantema", "bedrag": 103.65, "afBij": "Af", "categorie": "Vakantie"}, {"id": "t91", "datum": "2026-03-10", "naam": "Hr MC Houwaart", "bedrag": -711.8, "afBij": "Af", "categorie": "Vakantie"}, {"id": "t92", "datum": "2026-03-10", "naam": "Stichting Beheer Derdengelden Peaks", "bedrag": 6.9, "afBij": "Af", "categorie": "Investeren"}, {"id": "t93", "datum": "2026-03-09", "naam": "BP PADDEPOEL GRONINGEN NLD", "bedrag": 12.5, "afBij": "Af", "categorie": "Boodschappen"}, {"id": "t94", "datum": "2026-03-09", "naam": "Jumbo Paddepoel GRONINGEN NLD", "bedrag": 53.49, "afBij": "Af", "categorie": "Boodschappen"}, {"id": "t95", "datum": "2026-03-08", "naam": "Zondag Noorderplantsoe GRONINGEN", "bedrag": 6.6, "afBij": "Af", "categorie": "Uit eten & sociaal"}, {"id": "t96", "datum": "2026-03-07", "naam": "Koffie Martiniplaza GRONINGEN", "bedrag": 3.2, "afBij": "Af", "categorie": "Uit eten & sociaal"}, {"id": "t97", "datum": "2026-03-07", "naam": "Jumbo Paddepoel GRONINGEN NLD", "bedrag": 24.14, "afBij": "Af", "categorie": "Boodschappen"}, {"id": "t98", "datum": "2026-03-06", "naam": "ANWB Verzekeren", "bedrag": 3.73, "afBij": "Af", "categorie": "Vast & verplicht"}, {"id": "t99", "datum": "2026-03-05", "naam": "Hotel at Booking.com Amsterdam", "bedrag": 305.59, "afBij": "Af", "categorie": "Vakantie"}, {"id": "t100", "datum": "2026-03-04", "naam": "Mol*Voetbaltrips.com Utrecht NLD", "bedrag": 690.0, "afBij": "Af", "categorie": "Vakantie"}, {"id": "t101", "datum": "2026-03-04", "naam": "Flights on Booking.com Amsterdam", "bedrag": 428.0, "afBij": "Af", "categorie": "Vakantie"}, {"id": "t102", "datum": "2026-03-04", "naam": "Check Netherlands B.V. via Mollie", "bedrag": 8.85, "afBij": "Af", "categorie": "Vast & verplicht"}, {"id": "t103", "datum": "2026-03-04", "naam": "NS GROEP IZ NS REIZIGERS", "bedrag": 6.35, "afBij": "Af", "categorie": "Vast & verplicht"}, {"id": "t104", "datum": "2026-03-03", "naam": "BP PADDEPOEL GRONINGEN NLD", "bedrag": 12.5, "afBij": "Af", "categorie": "Boodschappen"}, {"id": "t105", "datum": "2026-03-03", "naam": "UKVI ETAMOB00001104091 LONDO GBR", "bedrag": 19.04, "afBij": "Af", "categorie": "Vakantie"}, {"id": "t106", "datum": "2026-03-03", "naam": "Belastingdienst", "bedrag": 95.0, "afBij": "Af", "categorie": "Vast & verplicht"}, {"id": "t107", "datum": "2026-03-03", "naam": "Amazon Prime Video UK iDeal", "bedrag": 4.99, "afBij": "Af", "categorie": "Vast & verplicht"}, {"id": "t108", "datum": "2026-03-03", "naam": "Amazon Prime Video UK iDeal", "bedrag": 9.99, "afBij": "Af", "categorie": "Vast & verplicht"}, {"id": "t109", "datum": "2026-03-03", "naam": "Stichting Beheer Derdengelden Peaks", "bedrag": 1.99, "afBij": "Af", "categorie": "Investeren"}, {"id": "t110", "datum": "2026-03-03", "naam": "ANWB BV", "bedrag": 10.39, "afBij": "Af", "categorie": "Vast & verplicht"}, {"id": "t111", "datum": "2026-03-03", "naam": "Stichting Beheer Derdengelden Peaks", "bedrag": 4.38, "afBij": "Af", "categorie": "Investeren"}, {"id": "t112", "datum": "2026-03-02", "naam": "Albert Heijn 1093 GRONINGEN NLD", "bedrag": 35.32, "afBij": "Af", "categorie": "Boodschappen"}, {"id": "t113", "datum": "2026-03-01", "naam": "MCDONALDS 01377 DORSTEN DEU", "bedrag": 18.38, "afBij": "Af", "categorie": "Vakantie"}, {"id": "t114", "datum": "2026-03-01", "naam": "Lidl Matran Matran CHE", "bedrag": 11.98, "afBij": "Af", "categorie": "Boodschappen"}, {"id": "t115", "datum": "2026-03-01", "naam": "Medenbach Ost Rasthaus Wiesb DEU", "bedrag": 1.0, "afBij": "Af", "categorie": "Vakantie"}, {"id": "t116", "datum": "2026-03-01", "naam": "Boes H Boes J", "bedrag": 250.0, "afBij": "Af", "categorie": "Vast & verplicht"}, {"id": "t117", "datum": "2026-02-28", "naam": "Boes via Tikkie", "bedrag": 50.0, "afBij": "Af", "categorie": "Uit eten & sociaal"}, {"id": "t118", "datum": "2026-02-28", "naam": "CHAUX DES ROSEES CHATEL FRA", "bedrag": 21.5, "afBij": "Af", "categorie": "Vakantie"}, {"id": "t119", "datum": "2026-02-28", "naam": "HAPPY HOURS BAR MONTRIOND FRA", "bedrag": 40.0, "afBij": "Af", "categorie": "Vakantie"}, {"id": "t120", "datum": "2026-02-28", "naam": "LA FOLIE DOUCE MORZINE FRA", "bedrag": 54.0, "afBij": "Af", "categorie": "Vakantie"}, {"id": "t121", "datum": "2026-02-28", "naam": "PERDRIX BLANCHE CHATEL FRA", "bedrag": 37.2, "afBij": "Af", "categorie": "Vakantie"}, {"id": "t122", "datum": "2026-02-27", "naam": "Stichting Beheer Derdengelden Peaks", "bedrag": 800.0, "afBij": "Af", "categorie": "Investeren"}, {"id": "t123", "datum": "2026-02-27", "naam": "Menzis Zorgverzekeraar NV", "bedrag": 164.85, "afBij": "Af", "categorie": "Vast & verplicht"}, {"id": "t124", "datum": "2026-02-27", "naam": "Basic Fit Nederland B.V.", "bedrag": 24.99, "afBij": "Af", "categorie": "Gezondheid"}, {"id": "t125", "datum": "2026-02-26", "naam": "CASSE NOISETTE CHATEL FRA", "bedrag": 5.5, "afBij": "Af", "categorie": "Vakantie"}, {"id": "t126", "datum": "2026-02-26", "naam": "LA FOLIE DOUCE MORZINE FRA", "bedrag": 11.0, "afBij": "Af", "categorie": "Vakantie"}, {"id": "t127", "datum": "2026-02-26", "naam": "LANVERS PERNET MONTRIOND FRA", "bedrag": 48.5, "afBij": "Af", "categorie": "Vakantie"}, {"id": "t128", "datum": "2026-02-26", "naam": "LA FOLIE DOUCE MORZINE FRA", "bedrag": 31.0, "afBij": "Af", "categorie": "Vakantie"}, {"id": "t129", "datum": "2026-02-26", "naam": "Stichting Het Vergeten Kind", "bedrag": 10.0, "afBij": "Af", "categorie": "Vast & verplicht"}, {"id": "t130", "datum": "2026-02-26", "naam": "Stg Save The Children Nederland", "bedrag": 10.0, "afBij": "Af", "categorie": "Vast & verplicht"}, {"id": "t131", "datum": "2026-02-25", "naam": "PERDRIX BLANCHE CHATEL FRA", "bedrag": 30.5, "afBij": "Af", "categorie": "Vakantie"}, {"id": "t132", "datum": "2026-02-25", "naam": "MAAK TECHNIEK PROCES", "bedrag": 3283.27, "afBij": "Bij", "categorie": "Inkomen"}, {"id": "t133", "datum": "2026-02-24", "naam": "CHAUX DES ROSEES CHATEL FRA", "bedrag": 36.4, "afBij": "Af", "categorie": "Vakantie"}, {"id": "t134", "datum": "2026-02-24", "naam": "Amazon EU SARL", "bedrag": 4.99, "afBij": "Af", "categorie": "Vast & verplicht"}, {"id": "t135", "datum": "2026-02-24", "naam": "Stichting Beheer Derdengelden Peaks", "bedrag": 5.56, "afBij": "Af", "categorie": "Investeren"}, {"id": "t136", "datum": "2026-02-23", "naam": "CASINO SHOP CHATEL FRA", "bedrag": 84.14, "afBij": "Af", "categorie": "Vakantie"}, {"id": "t137", "datum": "2026-02-23", "naam": "Aral Station 201280138 Solin DEU", "bedrag": 10.0, "afBij": "Af", "categorie": "Vakantie"}, {"id": "t138", "datum": "2026-02-23", "naam": "UNIGARANT NV", "bedrag": -69.04, "afBij": "Af", "categorie": "Vast & verplicht"}, {"id": "t139", "datum": "2026-02-22", "naam": "LS LORTAZ Chatel FRA", "bedrag": 23.0, "afBij": "Af", "categorie": "Vakantie"}, {"id": "t140", "datum": "2026-02-22", "naam": "CHATEL 1 CHATEL FRA", "bedrag": 300.0, "afBij": "Af", "categorie": "Vakantie"}, {"id": "t141", "datum": "2026-02-22", "naam": "T & R Buettelborn Sued DEU", "bedrag": 1.0, "afBij": "Af", "categorie": "Vakantie"}, {"id": "t142", "datum": "2026-02-22", "naam": "Tankstelle Renchtal We DEU", "bedrag": 1.0, "afBij": "Af", "categorie": "Vakantie"}, {"id": "t143", "datum": "2026-02-22", "naam": "Tankstelle Ohligser He Solin DEU", "bedrag": 4.7, "afBij": "Af", "categorie": "Vakantie"}, {"id": "t144", "datum": "2026-02-21", "naam": "CCV*ONNES HAIR STYLING GRONINGEN", "bedrag": 28.5, "afBij": "Af", "categorie": "Vast & verplicht"}, {"id": "t145", "datum": "2026-02-21", "naam": "CCV*Folkersma en Al Ra GRONINGEN", "bedrag": 4.4, "afBij": "Af", "categorie": "Vakantie"}, {"id": "t146", "datum": "2026-02-21", "naam": "Albert Heijn 1829 GRONINGEN NLD", "bedrag": 12.13, "afBij": "Af", "categorie": "Boodschappen"}, {"id": "t147", "datum": "2026-02-19", "naam": "Club de Padel 050", "bedrag": 51.51, "afBij": "Af", "categorie": "Gezondheid"}, {"id": "t148", "datum": "2026-02-18", "naam": "hollandsnieuwe", "bedrag": 7.8, "afBij": "Af", "categorie": "Vast & verplicht"}, {"id": "t149", "datum": "2026-02-17", "naam": "Stichting Beheer Derdengelden Peaks", "bedrag": 3.86, "afBij": "Af", "categorie": "Investeren"}, {"id": "t150", "datum": "2026-02-16", "naam": "Albert Heijn 1093 GRONINGEN NLD", "bedrag": 51.25, "afBij": "Af", "categorie": "Boodschappen"}, {"id": "t151", "datum": "2026-02-16", "naam": "Lidl 449 Groningen GRONINGEN NLD", "bedrag": 6.17, "afBij": "Af", "categorie": "Boodschappen"}, {"id": "t152", "datum": "2026-02-16", "naam": "Stichting Leger des Heils", "bedrag": 8.0, "afBij": "Af", "categorie": "Vast & verplicht"}, {"id": "t153", "datum": "2026-02-16", "naam": "UNIGARANT NV", "bedrag": 182.84, "afBij": "Af", "categorie": "Vast & verplicht"}, {"id": "t154", "datum": "2026-02-15", "naam": "BCK*SHELL MOLENPARK GRONINGEN", "bedrag": 20.48, "afBij": "Af", "categorie": "Vast & verplicht"}, {"id": "t155", "datum": "2026-02-15", "naam": "CCV*WIRWAR SPELLEN EN GRONINGEN", "bedrag": 18.0, "afBij": "Af", "categorie": "Uit eten & sociaal"}, {"id": "t156", "datum": "2026-02-15", "naam": "Peakz Padel Holding B. GRONINGEN", "bedrag": 11.9, "afBij": "Af", "categorie": "Gezondheid"}, {"id": "t157", "datum": "2026-02-13", "naam": "KPN B.V.", "bedrag": 45.56, "afBij": "Af", "categorie": "Vast & verplicht"}, {"id": "t158", "datum": "2026-02-13", "naam": "Kosten OranjePakket", "bedrag": 4.0, "afBij": "Af", "categorie": "Vast & verplicht"}, {"id": "t159", "datum": "2026-02-12", "naam": "Albert Heijn 1829 GRONINGEN NLD", "bedrag": 3.19, "afBij": "Af", "categorie": "Boodschappen"}, {"id": "t160", "datum": "2026-02-11", "naam": "Froling via Tikkie", "bedrag": 3.41, "afBij": "Af", "categorie": "Uit eten & sociaal"}, {"id": "t161", "datum": "2026-02-11", "naam": "Zalando Payments GmbH", "bedrag": 39.95, "afBij": "Bij", "categorie": "Inkomen"}, {"id": "t162", "datum": "2026-02-11", "naam": "BCK*Lubbers Groningen NLD", "bedrag": 2.0, "afBij": "Af", "categorie": "Vast & verplicht"}, {"id": "t163", "datum": "2026-02-11", "naam": "J.W.J. Klabbers via Rabo Betaalverzoek", "bedrag": 9.0, "afBij": "Af", "categorie": "Gezondheid"}, {"id": "t164", "datum": "2026-02-11", "naam": "J.W.J. Klabbers via Rabo Betaalverzoek", "bedrag": 8.5, "afBij": "Af", "categorie": "Gezondheid"}, {"id": "t165", "datum": "2026-02-10", "naam": "BP PADDEPOEL GRONINGEN NLD", "bedrag": 12.5, "afBij": "Af", "categorie": "Boodschappen"}, {"id": "t166", "datum": "2026-02-10", "naam": "ANWB Verzekeren", "bedrag": 3.73, "afBij": "Af", "categorie": "Vast & verplicht"}, {"id": "t167", "datum": "2026-02-10", "naam": "Stichting Beheer Derdengelden Peaks", "bedrag": 5.92, "afBij": "Af", "categorie": "Investeren"}, {"id": "t168", "datum": "2026-02-09", "naam": "Lidl 449 Groningen GRONINGEN NLD", "bedrag": 84.87, "afBij": "Af", "categorie": "Boodschappen"}, {"id": "t169", "datum": "2026-02-09", "naam": "SP GYMSHARK NETHERLAND AMSTERDAM", "bedrag": 47.0, "afBij": "Af", "categorie": "Lifestyle"}, {"id": "t170", "datum": "2026-02-08", "naam": "Nelson Groningen GRONINGEN NLD", "bedrag": 108.98, "afBij": "Af", "categorie": "Lifestyle"}, {"id": "t171", "datum": "2026-02-08", "naam": "Hr P Boes", "bedrag": 10.0, "afBij": "Bij", "categorie": "Inkomen"}, {"id": "t172", "datum": "2026-02-06", "naam": "Albert Heijn 1184 GRONINGEN NLD", "bedrag": 25.51, "afBij": "Af", "categorie": "Boodschappen"}, {"id": "t173", "datum": "2026-02-05", "naam": "STPARKEERGELDEN VIA RIVERTY", "bedrag": 12.27, "afBij": "Af", "categorie": "Vast & verplicht"}, {"id": "t174", "datum": "2026-02-03", "naam": "Online Payment Stichting", "bedrag": 45.0, "afBij": "Bij", "categorie": "Inkomen"}, {"id": "t175", "datum": "2026-02-03", "naam": "Groenestein via Tikkie", "bedrag": 27.0, "afBij": "Af", "categorie": "Woning & verbetering"}, {"id": "t176", "datum": "2026-02-03", "naam": "Hr P Boes", "bedrag": 12.5, "afBij": "Af", "categorie": "Vast & verplicht"}, {"id": "t177", "datum": "2026-02-03", "naam": "ANWB BV", "bedrag": 10.39, "afBij": "Af", "categorie": "Vast & verplicht"}, {"id": "t178", "datum": "2026-02-03", "naam": "Amazon Prime Video UK iDeal", "bedrag": 9.99, "afBij": "Af", "categorie": "Vast & verplicht"}, {"id": "t179", "datum": "2026-02-03", "naam": "Stichting Beheer Derdengelden Peaks", "bedrag": 3.69, "afBij": "Af", "categorie": "Investeren"}, {"id": "t180", "datum": "2026-02-03", "naam": "Stichting Beheer Derdengelden Peaks", "bedrag": 1.99, "afBij": "Af", "categorie": "Investeren"}, {"id": "t181", "datum": "2026-02-02", "naam": "Mol*Peakz Padel B V 31615859528", "bedrag": 14.25, "afBij": "Af", "categorie": "Gezondheid"}, {"id": "t182", "datum": "2026-02-02", "naam": "BP PADDEPOEL GRONINGEN NLD", "bedrag": 12.5, "afBij": "Af", "categorie": "Vast & verplicht"}, {"id": "t183", "datum": "2026-02-02", "naam": "Albert Heijn 1829 GRONINGEN NLD", "bedrag": 7.47, "afBij": "Af", "categorie": "Boodschappen"}, {"id": "t184", "datum": "2026-02-02", "naam": "Kruidvat 4693 GRONINGEN NLD", "bedrag": 6.59, "afBij": "Af", "categorie": "Lifestyle"}, {"id": "t185", "datum": "2026-02-02", "naam": "NS GROEP IZ NS REIZIGERS", "bedrag": 6.35, "afBij": "Af", "categorie": "Vast & verplicht"}, {"id": "t186", "datum": "2026-02-01", "naam": "Zalando Payments GmbH", "bedrag": 77.85, "afBij": "Af", "categorie": "Lifestyle"}, {"id": "t187", "datum": "2026-02-01", "naam": "Albert Heijn 1093 GRONINGEN NLD", "bedrag": 51.78, "afBij": "Af", "categorie": "Boodschappen"}, {"id": "t188", "datum": "2026-02-01", "naam": "Boes H Boes J", "bedrag": 250.0, "afBij": "Af", "categorie": "Vast & verplicht"}, {"id": "t189", "datum": "2026-01-31", "naam": "Cafetaria Plaza GRONINGEN NLD", "bedrag": 13.85, "afBij": "Af", "categorie": "Uit eten & sociaal"}, {"id": "t190", "datum": "2026-01-30", "naam": "1075 NL IDeal TVOD", "bedrag": 3.99, "afBij": "Af", "categorie": "Vast & verplicht"}, {"id": "t191", "datum": "2026-01-30", "naam": "1075 NL IDeal TVOD", "bedrag": 3.99, "afBij": "Af", "categorie": "Vast & verplicht"}, {"id": "t192", "datum": "2026-01-30", "naam": "Online Payment Stichting", "bedrag": 35.0, "afBij": "Bij", "categorie": "Inkomen"}, {"id": "t193", "datum": "2026-01-30", "naam": "Amazon Prime Video UK iDeal", "bedrag": 4.99, "afBij": "Af", "categorie": "Vast & verplicht"}, {"id": "t194", "datum": "2026-01-30", "naam": "Basic Fit Nederland B.V.", "bedrag": 24.99, "afBij": "Af", "categorie": "Gezondheid"}, {"id": "t195", "datum": "2026-01-30", "naam": "Stichting Beheer Derdengelden Peaks", "bedrag": 500.0, "afBij": "Af", "categorie": "Investeren"}, {"id": "t196", "datum": "2026-01-29", "naam": "Menzis Zorgverzekeraar NV", "bedrag": 164.85, "afBij": "Af", "categorie": "Vast & verplicht"}, {"id": "t197", "datum": "2026-01-28", "naam": "Peakz Padel B.V. via Stichting Mollie Payments", "bedrag": 14.25, "afBij": "Af", "categorie": "Gezondheid"}, {"id": "t198", "datum": "2026-01-28", "naam": "Peakz Padel B.V. via Stichting Mollie Payments", "bedrag": 15.0, "afBij": "Af", "categorie": "Gezondheid"}, {"id": "t199", "datum": "2026-01-28", "naam": "A. Heeres", "bedrag": -12.88, "afBij": "Af", "categorie": "Gezondheid"}, {"id": "t200", "datum": "2026-01-28", "naam": "T BONESCHANSKER", "bedrag": -12.88, "afBij": "Af", "categorie": "Gezondheid"}, {"id": "t201", "datum": "2026-01-27", "naam": "Club de Padel 050", "bedrag": 51.51, "afBij": "Af", "categorie": "Gezondheid"}, {"id": "t202", "datum": "2026-01-27", "naam": "Boes Services + Consultancy", "bedrag": 1513.49, "afBij": "Bij", "categorie": "Inkomen"}, {"id": "t203", "datum": "2026-01-27", "naam": "BP PADDEPOEL GRONINGEN NLD", "bedrag": 12.5, "afBij": "Af", "categorie": "Vast & verplicht"}, {"id": "t204", "datum": "2026-01-27", "naam": "Stg Save The Children Nederland", "bedrag": 10.0, "afBij": "Af", "categorie": "Vast & verplicht"}, {"id": "t205", "datum": "2026-01-27", "naam": "BELASTINGDIENST", "bedrag": 12.0, "afBij": "Af", "categorie": "Vast & verplicht"}, {"id": "t206", "datum": "2026-01-27", "naam": "Stichting Beheer Derdengelden Peaks", "bedrag": 2.67, "afBij": "Af", "categorie": "Investeren"}, {"id": "t207", "datum": "2026-01-26", "naam": "Hr P Boes", "bedrag": 22.78, "afBij": "Bij", "categorie": "Inkomen"}, {"id": "t208", "datum": "2026-01-26", "naam": "Lidl 449 Groningen GRONINGEN NLD", "bedrag": 45.12, "afBij": "Af", "categorie": "Boodschappen"}, {"id": "t209", "datum": "2026-01-26", "naam": "Stichting Het Vergeten Kind", "bedrag": 10.0, "afBij": "Af", "categorie": "Vast & verplicht"}, {"id": "t210", "datum": "2026-01-25", "naam": "BCK*Decathlon 2224 GRONINGEN NLD", "bedrag": 51.94, "afBij": "Af", "categorie": "Vakantie"}, {"id": "t211", "datum": "2026-01-25", "naam": "SP CLOUDPILLO SHERTOGENBOS NLD", "bedrag": 143.92, "afBij": "Af", "categorie": "Woning & verbetering"}, {"id": "t212", "datum": "2026-01-23", "naam": "Pollo Picante via Takeaway.com", "bedrag": 23.99, "afBij": "Af", "categorie": "Uit eten & sociaal"}, {"id": "t213", "datum": "2026-01-23", "naam": "Hr EF Burgio", "bedrag": -13.64, "afBij": "Af", "categorie": "Gezondheid"}, {"id": "t214", "datum": "2026-01-23", "naam": "Reijntjens via Tikkie", "bedrag": 70.0, "afBij": "Af", "categorie": "Vakantie"}, {"id": "t215", "datum": "2026-01-23", "naam": "MAAK TECHNIEK PROCES", "bedrag": 4089.22, "afBij": "Bij", "categorie": "Inkomen"}, {"id": "t216", "datum": "2026-01-22", "naam": "BCK*BC de Ommelanden Groningen", "bedrag": 0.7, "afBij": "Af", "categorie": "Uit eten & sociaal"}, {"id": "t217", "datum": "2026-01-22", "naam": "Hr B Schiphof", "bedrag": 13.64, "afBij": "Bij", "categorie": "Inkomen"}, {"id": "t218", "datum": "2026-01-22", "naam": "Amazon EU SARL", "bedrag": 4.99, "afBij": "Af", "categorie": "Vast & verplicht"}, {"id": "t219", "datum": "2026-01-21", "naam": "Albert Heijn 1829 GRONINGEN NLD", "bedrag": 14.69, "afBij": "Af", "categorie": "Boodschappen"}, {"id": "t220", "datum": "2026-01-20", "naam": "Stichting Beheer Derdengelden Peaks", "bedrag": 6.89, "afBij": "Af", "categorie": "Investeren"}, {"id": "t221", "datum": "2026-01-19", "naam": "hollandsnieuwe", "bedrag": 7.8, "afBij": "Af", "categorie": "Vast & verplicht"}, {"id": "t222", "datum": "2026-01-19", "naam": "T BONESCHANSKER", "bedrag": -13.64, "afBij": "Af", "categorie": "Gezondheid"}, {"id": "t223", "datum": "2026-01-19", "naam": "Lidl 449 Groningen GRONINGEN NLD", "bedrag": 20.92, "afBij": "Af", "categorie": "Boodschappen"}, {"id": "t224", "datum": "2026-01-18", "naam": "Club de Padel 050", "bedrag": 54.54, "afBij": "Af", "categorie": "Gezondheid"}, {"id": "t225", "datum": "2026-01-18", "naam": "Media Markt Online Nederland", "bedrag": 209.0, "afBij": "Af", "categorie": "Lifestyle"}, {"id": "t226", "datum": "2026-01-18", "naam": "CCV*Het Pakhuis GRONINGEN NLD", "bedrag": 3.9, "afBij": "Af", "categorie": "Uit eten & sociaal"}, {"id": "t227", "datum": "2026-01-18", "naam": "CCV*Het Pakhuis GRONINGEN NLD", "bedrag": 1.5, "afBij": "Af", "categorie": "Uit eten & sociaal"}, {"id": "t228", "datum": "2026-01-18", "naam": "CCV*Het Pakhuis GRONINGEN NLD", "bedrag": 3.9, "afBij": "Af", "categorie": "Uit eten & sociaal"}, {"id": "t229", "datum": "2026-01-18", "naam": "DE BROUWERIJ GRONINGEN NLD", "bedrag": 6.0, "afBij": "Af", "categorie": "Uit eten & sociaal"}, {"id": "t230", "datum": "2026-01-18", "naam": "Boneschansker via Tikkie", "bedrag": 22.22, "afBij": "Af", "categorie": "Uit eten & sociaal"}, {"id": "t231", "datum": "2026-01-18", "naam": "Froling via Tikkie", "bedrag": 4.62, "afBij": "Af", "categorie": "Uit eten & sociaal"}, {"id": "t232", "datum": "2026-01-18", "naam": "Lidl 449 Groningen GRONINGEN NLD", "bedrag": 35.66, "afBij": "Af", "categorie": "Boodschappen"}, {"id": "t233", "datum": "2026-01-17", "naam": "Hr T Bantema", "bedrag": 19.38, "afBij": "Af", "categorie": "Uit eten & sociaal"}, {"id": "t234", "datum": "2026-01-17", "naam": "J.A.A. Koopmans via Rabo Betaalverzoek", "bedrag": 49.0, "afBij": "Af", "categorie": "Uit eten & sociaal"}, {"id": "t235", "datum": "2026-01-17", "naam": "Negende Cirkel GRONINGEN NLD", "bedrag": 14.4, "afBij": "Af", "categorie": "Uit eten & sociaal"}, {"id": "t236", "datum": "2026-01-17", "naam": "Stefan Hageman via Rabo Betaalverzoek", "bedrag": 58.3, "afBij": "Af", "categorie": "Uit eten & sociaal"}, {"id": "t237", "datum": "2026-01-17", "naam": "Mitra Slijterij Iwema GRONINGEN", "bedrag": 26.49, "afBij": "Af", "categorie": "Uit eten & sociaal"}, {"id": "t238", "datum": "2026-01-16", "naam": "Hr T Bantema,Mw B Hermanni", "bedrag": 10.0, "afBij": "Af", "categorie": "Uit eten & sociaal"}, {"id": "t239", "datum": "2026-01-16", "naam": "Menzis Zorgverzekeraar NV", "bedrag": 164.85, "afBij": "Af", "categorie": "Vast & verplicht"}, {"id": "t240", "datum": "2026-01-15", "naam": "Stichting Leger des Heils", "bedrag": 8.0, "afBij": "Af", "categorie": "Vast & verplicht"}, {"id": "t241", "datum": "2026-01-14", "naam": "KPN B.V.", "bedrag": 45.56, "afBij": "Af", "categorie": "Vast & verplicht"}, {"id": "t242", "datum": "2026-01-13", "naam": "BP PADDEPOEL GRONINGEN NLD", "bedrag": 12.5, "afBij": "Af", "categorie": "Vast & verplicht"}, {"id": "t243", "datum": "2026-01-13", "naam": "Stichting Beheer Derdengelden Peaks", "bedrag": 5.72, "afBij": "Af", "categorie": "Investeren"}, {"id": "t244", "datum": "2026-01-13", "naam": "Kosten OranjePakket", "bedrag": 3.9, "afBij": "Af", "categorie": "Vast & verplicht"}, {"id": "t245", "datum": "2026-01-12", "naam": "NL0168  H&M GRONINGEN NLD", "bedrag": 40.28, "afBij": "Af", "categorie": "Lifestyle"}, {"id": "t246", "datum": "2026-01-12", "naam": "ALBERT HEIJN 1243 GRONINGEN NLD", "bedrag": 2.57, "afBij": "Af", "categorie": "Boodschappen"}, {"id": "t247", "datum": "2026-01-12", "naam": "BCK*BAKKER BART GRONINGEN NLD", "bedrag": 0.5, "afBij": "Af", "categorie": "Uit eten & sociaal"}, {"id": "t248", "datum": "2026-01-12", "naam": "ALBERT HEIJN 1093 GRONINGEN NLD", "bedrag": 10.95, "afBij": "Af", "categorie": "Boodschappen"}, {"id": "t249", "datum": "2026-01-11", "naam": "Hr P Boes", "bedrag": 187.47, "afBij": "Af", "categorie": "Vakantie"}, {"id": "t250", "datum": "2026-01-11", "naam": "Lidl 449 Groningen GRONINGEN NLD", "bedrag": 57.96, "afBij": "Af", "categorie": "Boodschappen"}, {"id": "t251", "datum": "2026-01-11", "naam": "ETOS 7920 GRONINGEN NLD", "bedrag": 32.32, "afBij": "Af", "categorie": "Lifestyle"}, {"id": "t252", "datum": "2026-01-10", "naam": "bol.com", "bedrag": 18.24, "afBij": "Af", "categorie": "Lifestyle"}, {"id": "t253", "datum": "2026-01-10", "naam": "CCV*ONNES HAIR STYLING GRONINGEN", "bedrag": 28.5, "afBij": "Af", "categorie": "Vast & verplicht"}, {"id": "t254", "datum": "2026-01-10", "naam": "Miedema via Tikkie", "bedrag": 9.6, "afBij": "Af", "categorie": "Uit eten & sociaal"}, {"id": "t255", "datum": "2026-01-10", "naam": "Norder via Tikkie", "bedrag": 10.53, "afBij": "Af", "categorie": "Uit eten & sociaal"}, {"id": "t256", "datum": "2026-01-09", "naam": "Albert Heijn 1829 GRONINGEN NLD", "bedrag": 5.99, "afBij": "Af", "categorie": "Boodschappen"}, {"id": "t257", "datum": "2026-01-08", "naam": "J. Banus", "bedrag": -15.0, "afBij": "Af", "categorie": "Uit eten & sociaal"}, {"id": "t258", "datum": "2026-01-08", "naam": "SPOT Groningen", "bedrag": 30.0, "afBij": "Af", "categorie": "Uit eten & sociaal"}, {"id": "t259", "datum": "2026-01-08", "naam": "Albert Heijn 1829 GRONINGEN NLD", "bedrag": 20.18, "afBij": "Af", "categorie": "Boodschappen"}, {"id": "t260", "datum": "2026-01-07", "naam": "ANWB Verzekeren", "bedrag": 3.73, "afBij": "Af", "categorie": "Vast & verplicht"}, {"id": "t261", "datum": "2026-01-06", "naam": "Stichting Beheer Derdengelden Peaks", "bedrag": 1.99, "afBij": "Af", "categorie": "Investeren"}, {"id": "t262", "datum": "2026-01-06", "naam": "Stichting Beheer Derdengelden Peaks", "bedrag": 4.87, "afBij": "Af", "categorie": "Investeren"}, {"id": "t263", "datum": "2026-01-05", "naam": "Hr T Bantema", "bedrag": 663.28, "afBij": "Af", "categorie": "Vakantie"}, {"id": "t264", "datum": "2026-01-05", "naam": "ANWB Verzekeren", "bedrag": 7.02, "afBij": "Af", "categorie": "Vast & verplicht"}, {"id": "t265", "datum": "2026-01-05", "naam": "Amazon Prime Video UK iDeal", "bedrag": 9.99, "afBij": "Af", "categorie": "Vast & verplicht"}, {"id": "t266", "datum": "2026-01-04", "naam": "bol.com", "bedrag": 79.94, "afBij": "Af", "categorie": "Woning & verbetering"}, {"id": "t267", "datum": "2026-01-04", "naam": "Albert Heijn 1093 GRONINGEN NLD", "bedrag": 54.91, "afBij": "Af", "categorie": "Boodschappen"}, {"id": "t268", "datum": "2026-01-04", "naam": "Stichting Judoteam Groningen via Rabo Zakelijk Betaalverzoek", "bedrag": 15.0, "afBij": "Af", "categorie": "Gezondheid"}, {"id": "t269", "datum": "2026-01-04", "naam": "Grossenmoor Ost Tanksh Burgh DEU", "bedrag": 5.9, "afBij": "Af", "categorie": "Vakantie"}, {"id": "t270", "datum": "2026-01-04", "naam": "Grossenmoor Ost Tanksh Burgh DEU", "bedrag": 4.9, "afBij": "Af", "categorie": "Vakantie"}, {"id": "t271", "datum": "2026-01-04", "naam": "Grossenmoor Ost Tanksh Burgh DEU", "bedrag": 1.0, "afBij": "Af", "categorie": "Vakantie"}, {"id": "t272", "datum": "2026-01-03", "naam": "Peakz Padel B.V. via Stichting Mollie Payments", "bedrag": 14.25, "afBij": "Af", "categorie": "Gezondheid"}, {"id": "t273", "datum": "2026-01-03", "naam": "Spar Dankt 2209 Zell am See AUT", "bedrag": 22.11, "afBij": "Af", "categorie": "Vakantie"}, {"id": "t274", "datum": "2026-01-02", "naam": "Spar Dankt 2209 Zell am See AUT", "bedrag": 12.48, "afBij": "Af", "categorie": "Vakantie"}, {"id": "t275", "datum": "2026-01-02", "naam": "Alpincenter K 9 Kaprun AUT", "bedrag": 22.9, "afBij": "Af", "categorie": "Vakantie"}, {"id": "t276", "datum": "2026-01-02", "naam": "ANWB BV", "bedrag": 10.39, "afBij": "Af", "categorie": "Vast & verplicht"}, {"id": "t277", "datum": "2026-01-01", "naam": "Boes H Boes J", "bedrag": 250.0, "afBij": "Af", "categorie": "Vast & verplicht"}];</script>
+<script type="text/babel">
+const { useState, useEffect, useCallback, useMemo, useRef } = React;
+
+// ─── CONSTANTS ───────────────────────────────────────────────────────────────
+const DEFAULT_CATS = [
+  { name:"Vast & verplicht",          pct:0.16113, color:"#AED6F1", icon:"🏠", skipRed:false },
+  { name:"Boodschappen",              pct:0.10581, color:"#A9DFBF", icon:"🛒", skipRed:false },
+  { name:"Gezondheid",                pct:0.03900, color:"#F9E79F", icon:"💪", skipRed:false },
+  { name:"Vakantie",                  pct:0.16385, color:"#F1948A", icon:"✈️", skipRed:false },
+  { name:"Persoonlijke ontwikkeling", pct:0.07013, color:"#D7BDE2", icon:"📚", skipRed:false },
+  { name:"Investeren",                pct:0.15115, color:"#85C1E9", icon:"📈", skipRed:true  },
+  { name:"Woning & verbetering",      pct:0.04655, color:"#FAD7A0", icon:"🔨", skipRed:false },
+  { name:"Uit eten & sociaal",        pct:0.05562, color:"#F8C471", icon:"🍽️", skipRed:false },
+  { name:"Lifestyle",                 pct:0.05562, color:"#D5DBDB", icon:"🛍️", skipRed:false },
+  { name:"Noodbuffer",                pct:0.04534, color:"#AEB6BF", icon:"🛡️", skipRed:true  },
+  { name:"FU-fund",                   pct:0.03023, color:"#A3E4D7", icon:"🎯", skipRed:true  },
+  { name:"Groot persoonlijk verlangen",pct:0.07569,color:"#C5CAE9", icon:"⭐", skipRed:true  },
+];
+const DEFAULT_SETTINGS = { income: 3308, categories: DEFAULT_CATS };
+const SKIP_CATS = new Set(["Inkomen","Interne transfer","Onbekend"]);
+
+// ─── USER-LEARNED CATEGORISATIE ──────────────────────────────────────────────
+// Map van { keyFragment: categorie } opgebouwd uit eerdere keuzes
+function txKey(naam){
+  // Normaliseer naar lowercase, verwijder nummers/ruis, trim
+  return String(naam).toLowerCase().replace(/\s+/g," ").trim();
+}
+function loadUserCatMap(){
+  try { return JSON.parse(localStorage.getItem("budget_user_cat_map")||"{}"); } catch { return {}; }
+}
+function saveUserCatMap(m){
+  try { localStorage.setItem("budget_user_cat_map", JSON.stringify(m)); } catch {}
+}
+function learnCat(naam, categorie){
+  if (!naam || !categorie) return;
+  if (SKIP_CATS.has(categorie) && categorie !== "Inkomen") return;
+  const m = loadUserCatMap();
+  m[txKey(naam)] = categorie;
+  saveUserCatMap(m);
+}
+function userCatLookup(naam){
+  if (!naam) return null;
+  const m = loadUserCatMap();
+  const key = txKey(naam);
+  if (m[key]) return m[key];
+  // Partial match: bestaande key is een prefix van de transactienaam (bv. "Albert Heijn 1093" → "albert heijn")
+  for (const k of Object.keys(m)){
+    if (k.length >= 5 && key.includes(k)) return m[k];
+  }
+  return null;
+}
+
+// ─── AUTO-CATEGORISATIE ───────────────────────────────────────────────────────
+function autoCatBase(naam, afBij) {
+  const n = naam.toLowerCase();
+  if (afBij === "Bij") {
+    if (n.includes("oranje spaarrekening")) return "Interne transfer";
+    return "Inkomen";
+  }
+  if (n.includes("oranje spaarrekening") || n.includes("incasso ing creditcard")) return "Interne transfer";
+  if (["albert heijn","jumbo","lidl","aldi","primera"].some(x=>n.includes(x))) return "Boodschappen";
+  if (n.includes("spar") && ["aut","che","gbr"].some(x=>n.includes(x))) return "Vakantie";
+  if (n.includes("spar")) return "Boodschappen";
+  if (["menzis","zorgverzekeraar"].some(x=>n.includes(x))) return "Vast & verplicht";
+  if (n.includes("hollandsnieuwe")) return "Vast & verplicht";
+  if (n.includes("anwb")) return "Vast & verplicht";
+  if (n.includes("amazon prime video")||n.includes("amazon eu sarl")) return "Vast & verplicht";
+  if (["leger des heils","save the children","vergeten kind"].some(x=>n.includes(x))) return "Vast & verplicht";
+  if (n.includes("kosten oranje")) return "Vast & verplicht";
+  if (n.includes("onnes hair")) return "Vast & verplicht";
+  if (["ns groep","ns reizigers"].some(x=>n.includes(x))) return "Vast & verplicht";
+  if (["check netherlands","stparkeergelden","bcn utrecht parkeren"].some(x=>n.includes(x))) return "Vast & verplicht";
+  if (n.includes("boes h boes j")) return "Vast & verplicht";
+  if (n.includes("unigarant")) return "Vast & verplicht";
+  if (["bp paddepoel","bck*shell","circle k","roebert tankstatio","ovpay.nl"].some(x=>n.includes(x))) return "Vast & verplicht";
+  if (n.includes("1075 nl")) return "Vast & verplicht";
+  if (["basic fit","peakz padel","mol*peakz","club de padel"].some(x=>n.includes(x))) return "Gezondheid";
+  if (n.includes("infomedics")||n.includes("judoteam")||n.includes("bc de ommelanden")) return "Gezondheid";
+  if (n.includes("peaks")||n.includes("stichting beheer derdengelden")) return "Investeren";
+  if (["chatel","morzine","montriond","la folie douce","perdrix blanche","casse noisette","lanvers pernet"].some(x=>n.includes(x))) return "Vakantie";
+  if (["zell am see","kaprun","alpincenter"].some(x=>n.includes(x))) return "Vakantie";
+  if (["manchester","mufc","sir matt busby","willow catering","vine inn","the faraday","mancity shop","abm catering"].some(x=>n.includes(x))) return "Vakantie";
+  if (["voetbaltrips","flights on booking","hotel at booking","ukvi","bolt.eu"].some(x=>n.includes(x))) return "Vakantie";
+  if (n.includes("luchthaven")||n.includes("schiphol")) return "Vakantie";
+  if (["grossenmoor","medenbach ost","aral station","tankstelle","mcdonalds 01377"].some(x=>n.includes(x))) return "Vakantie";
+  if (["takeaway","pollo picante","cafe de blauwe pan","het pakhuis","de brouwerij","negende cirkel","mitra slijterij","cafetaria plaza","spot groningen","bakker bart","koffie martiniplaza"].some(x=>n.includes(x))) return "Uit eten & sociaal";
+  if (["h&m","nl0168","zalando","etos","kruidvat","gymshark","media markt","nelson groningen"].some(x=>n.includes(x))) return "Lifestyle";
+  if (n.includes("ikea")||n.includes("cloudpillo")) return "Woning & verbetering";
+  if (n.includes("kitesurfvereniging")) return "Persoonlijke ontwikkeling";
+  if (n.includes("belastingdienst")) return "Noodbuffer";
+  return "Onbekend";
+}
+
+// Wrapper: eerst user-lookup, dan fallback naar hardcoded regels
+function autoCat(naam, afBij){
+  const learned = userCatLookup(naam);
+  if (learned) return learned;
+  return autoCatBase(naam, afBij);
+}
+
+// ─── CSV PARSERS ─────────────────────────────────────────────────────────────
+// CSV row splitter met quote-support (velden kunnen komma's bevatten tussen quotes)
+function splitCSV(line, sep){
+  const out = [];
+  let cur = "", inQ = false;
+  for (let i = 0; i < line.length; i++){
+    const ch = line[i];
+    if (ch === '"'){
+      if (inQ && line[i+1] === '"'){ cur += '"'; i++; }
+      else inQ = !inQ;
+    } else if (ch === sep && !inQ){
+      out.push(cur); cur = "";
+    } else {
+      cur += ch;
+    }
+  }
+  out.push(cur);
+  return out.map(x => x.trim());
+}
+function detectSep(firstLine){
+  // Kies separator met hoogste count buiten quotes
+  const counts = { ",":0, ";":0, "\t":0 };
+  let inQ = false;
+  for (let i=0;i<firstLine.length;i++){
+    const ch = firstLine[i];
+    if (ch === '"') inQ = !inQ;
+    else if (!inQ && counts[ch] !== undefined) counts[ch]++;
+  }
+  return Object.entries(counts).sort((a,b)=>b[1]-a[1])[0][0];
+}
+function normalizeDate(raw){
+  const s = raw.replace(/"/g,"").trim();
+  if (/^\d{8}$/.test(s)) return `${s.slice(0,4)}-${s.slice(4,6)}-${s.slice(6,8)}`;
+  if (/^\d{4}-\d{2}-\d{2}/.test(s)) return s.slice(0,10);
+  // dd-mm-yyyy of dd/mm/yyyy
+  let m = s.match(/^(\d{1,2})[-\/](\d{1,2})[-\/](\d{4})/);
+  if (m) return `${m[3]}-${m[2].padStart(2,"0")}-${m[1].padStart(2,"0")}`;
+  // dd-mm-yy
+  m = s.match(/^(\d{1,2})[-\/](\d{1,2})[-\/](\d{2})$/);
+  if (m) return `20${m[3]}-${m[2].padStart(2,"0")}-${m[1].padStart(2,"0")}`;
+  return s;
+}
+function parseAmount(raw){
+  if (raw === undefined || raw === null) return 0;
+  let s = String(raw).replace(/"/g,"").replace(/\s/g,"").trim();
+  if (!s) return 0;
+  // Detecteer Europees formaat: komma als decimaal (1.234,56)
+  if (s.includes(",") && s.lastIndexOf(",") > s.lastIndexOf(".")){
+    s = s.replace(/\./g,"").replace(",",".");
+  } else {
+    s = s.replace(/,/g,"");
+  }
+  return parseFloat(s) || 0;
+}
+
+function detectBank(firstLine){
+  const l = firstLine.toLowerCase();
+  if (l.includes("af bij") || (l.includes("naam / omschrijving") && l.includes("bedrag (eur)"))) return "ING";
+  if (l.includes("iban/bban") || (l.includes("bic") && l.includes("volgnr"))) return "Rabo";
+  if (l.includes("date") && l.includes("counterparty") && l.includes("amount")) return "Bunq";
+  // ABN AMRO heeft geen headers; check of eerste regel begint met IBAN NL-nummer (pipe-separated)
+  if (/^"?NL\d{2}[A-Z]{4}/.test(firstLine)) return "ABN";
+  return null;
+}
+
+function parseING(text){
+  const lines = text.trim().split(/\r?\n/);
+  const sep = detectSep(lines[0]);
+  const out = [];
+  for (let i=1;i<lines.length;i++){
+    if (!lines[i].trim()) continue;
+    const cols = splitCSV(lines[i], sep).map(x => x.replace(/^"|"$/g,""));
+    if (cols.length < 7) continue;
+    const datum = normalizeDate(cols[0]);
+    const naam  = cols[1];
+    const afBij = cols[5];
+    const bedrag = parseAmount(cols[6]);
+    if (!naam) continue;
+    out.push(finalizeTx(`ing_${i}`, datum, naam, bedrag, afBij));
+  }
+  return out;
+}
+
+function parseRabo(text){
+  const lines = text.trim().split(/\r?\n/);
+  const sep = detectSep(lines[0]);
+  const header = splitCSV(lines[0], sep).map(h => h.replace(/^"|"$/g,"").toLowerCase());
+  const idx = {
+    datum: header.findIndex(h => h === "datum"),
+    bedrag: header.findIndex(h => h === "bedrag"),
+    naamTegenp: header.findIndex(h => h.includes("naam tegenpartij")),
+    omschr1: header.findIndex(h => h === "omschrijving-1"),
+    omschr2: header.findIndex(h => h === "omschrijving-2"),
+    omschr3: header.findIndex(h => h === "omschrijving-3"),
+  };
+  const out = [];
+  for (let i=1;i<lines.length;i++){
+    if (!lines[i].trim()) continue;
+    const cols = splitCSV(lines[i], sep).map(x => x.replace(/^"|"$/g,""));
+    const datum = normalizeDate(cols[idx.datum >= 0 ? idx.datum : 4]);
+    const bedragRaw = cols[idx.bedrag >= 0 ? idx.bedrag : 6];
+    const bedrag = parseAmount(bedragRaw);
+    const naamTp = idx.naamTegenp >= 0 ? (cols[idx.naamTegenp] || "") : "";
+    const omschr = [idx.omschr1, idx.omschr2, idx.omschr3]
+      .filter(x => x >= 0).map(x => cols[x] || "").filter(Boolean).join(" ");
+    const naam = (naamTp || omschr || "").trim();
+    if (!naam) continue;
+    const afBij = bedrag < 0 ? "Af" : "Bij";
+    out.push(finalizeTx(`rabo_${i}`, datum, naam, Math.abs(bedrag), afBij));
+  }
+  return out;
+}
+
+function parseABN(text){
+  // ABN TAB-separated, geen header. Kolommen: IBAN, Munt, Datum(YYYYMMDD), Saldo vooraf, Saldo achteraf, Datum(YYYYMMDD), Bedrag, Omschrijving
+  const lines = text.trim().split(/\r?\n/);
+  const out = [];
+  for (let i=0;i<lines.length;i++){
+    const line = lines[i];
+    if (!line.trim()) continue;
+    // Separator kan tab of komma zijn
+    let cols;
+    if (line.includes("\t")) cols = line.split("\t").map(x=>x.replace(/^"|"$/g,""));
+    else cols = splitCSV(line, detectSep(line)).map(x=>x.replace(/^"|"$/g,""));
+    if (cols.length < 7) continue;
+    const datum = normalizeDate(cols[2]);
+    const bedrag = parseAmount(cols[6]);
+    const naam = (cols[7] || "").replace(/\s+/g," ").trim();
+    if (!naam || !datum) continue;
+    const afBij = bedrag < 0 ? "Af" : "Bij";
+    out.push(finalizeTx(`abn_${i}`, datum, naam, Math.abs(bedrag), afBij));
+  }
+  return out;
+}
+
+function parseBunq(text){
+  const lines = text.trim().split(/\r?\n/);
+  const sep = detectSep(lines[0]);
+  const header = splitCSV(lines[0], sep).map(h => h.replace(/^"|"$/g,"").toLowerCase().trim());
+  const idx = {
+    date: header.findIndex(h => h === "date"),
+    amount: header.findIndex(h => h === "amount"),
+    counterparty: header.findIndex(h => h === "counterparty"),
+    description: header.findIndex(h => h === "description"),
+  };
+  const out = [];
+  for (let i=1;i<lines.length;i++){
+    if (!lines[i].trim()) continue;
+    const cols = splitCSV(lines[i], sep).map(x => x.replace(/^"|"$/g,""));
+    const datum = normalizeDate(cols[idx.date >= 0 ? idx.date : 0]);
+    const bedrag = parseAmount(cols[idx.amount >= 0 ? idx.amount : 1]);
+    const cp = idx.counterparty >= 0 ? (cols[idx.counterparty] || "") : "";
+    const desc = idx.description >= 0 ? (cols[idx.description] || "") : "";
+    const naam = (cp || desc).trim();
+    if (!naam) continue;
+    const afBij = bedrag < 0 ? "Af" : "Bij";
+    out.push(finalizeTx(`bunq_${i}`, datum, naam, Math.abs(bedrag), afBij));
+  }
+  return out;
+}
+
+function finalizeTx(idPrefix, datum, naam, bedrag, afBij){
+  const cat = autoCat(naam, afBij);
+  // Fix: negatieve "Bij" in spending cat → Af
+  let finalBedrag = bedrag;
+  let finalAfBij = afBij;
+  if (afBij === "Bij" && bedrag < 0 && !SKIP_CATS.has(cat)) finalAfBij = "Af";
+  return {
+    id: `t${Date.now()}_${idPrefix}`,
+    datum, naam,
+    bedrag: finalAfBij === "Bij" ? Math.abs(finalBedrag) : Math.abs(finalBedrag),
+    afBij: finalAfBij,
+    categorie: cat
+  };
+}
+
+const BANK_PARSERS = {
+  ING: { label:"ING", fn: parseING },
+  Rabo:{ label:"Rabobank", fn: parseRabo },
+  ABN: { label:"ABN AMRO", fn: parseABN },
+  Bunq:{ label:"bunq", fn: parseBunq },
+};
+
+function parseCSV(text, forcedBank){
+  const firstLine = text.trim().split(/\r?\n/)[0] || "";
+  const bank = forcedBank || detectBank(firstLine);
+  if (!bank || !BANK_PARSERS[bank]) return { bank:null, rows:[] };
+  try {
+    const rows = BANK_PARSERS[bank].fn(text);
+    return { bank, rows };
+  } catch (e) {
+    return { bank, rows:[], error: e.message };
+  }
+}
+
+// ─── STORAGE HOOK ────────────────────────────────────────────────────────────
+function useLS(key, def) {
+  const [val, setVal] = useState(() => {
+    try { const s = localStorage.getItem(key); return s ? JSON.parse(s) : def; } catch { return def; }
+  });
+  useEffect(() => { try { localStorage.setItem(key, JSON.stringify(val)); } catch {} }, [key, val]);
+  return [val, setVal];
+}
+
+// ─── HELPERS ────────────────────────────────────────────────────────────────
+const fmt = (n) => new Intl.NumberFormat("nl-NL", {minimumFractionDigits:2,maximumFractionDigits:2}).format(n);
+const fmtK = (n) => n >= 1000 ? (n/1000).toFixed(1)+"k" : Math.round(n).toString();
+
+function getMonths(txs) {
+  const set = new Set(txs.map(t => t.datum.slice(0,7)));
+  return [...set].sort().reverse();
+}
+
+function getCatTotal(txs, catName, month) {
+  return txs
+    .filter(t => t.afBij === "Af" && t.categorie === catName && t.datum.slice(0,7) === month)
+    .reduce((s, t) => s + t.bedrag, 0);
+}
+
+const MNTH_NL = {"01":"Jan","02":"Feb","03":"Mrt","04":"Apr","05":"Mei","06":"Jun","07":"Jul","08":"Aug","09":"Sep","10":"Okt","11":"Nov","12":"Dec"};
+function monthLabel(ym) {
+  const [y,m] = ym.split("-");
+  return (MNTH_NL[m]||m)+" "+y;
+}
+
+// ─── PERIODES (voor Gemiddeld-modus) ─────────────────────────────────────────
+const AVG_PERIODS = [
+  { id:"avg3",  label:"Gem. 3 mnd",  months:3  },
+  { id:"avg6",  label:"Gem. 6 mnd",  months:6  },
+  { id:"avg12", label:"Gem. 1 jaar", months:12 },
+  { id:"avg24", label:"Gem. 2 jaar", months:24 },
+  { id:"avg60", label:"Gem. 5 jaar", months:60 },
+];
+const isAvgSel = (s) => typeof s === "string" && s.startsWith("avg");
+function avgPeriodMonths(id){ return (AVG_PERIODS.find(p=>p.id===id)||{}).months || 0; }
+
+// ─── SUPABASE CLIENT ────────────────────────────────────────────────────────
+const SUPABASE_URL = "https://hyslnmxwrutridfrgoin.supabase.co";
+const SUPABASE_KEY = "sb_publishable_Z758b7eXHE5Y21ZyNNDF_w_0f87gFP5";
+const sb = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY) : null;
+
+// ─── AUTH HOOK ──────────────────────────────────────────────────────────────
+function useAuth(){
+  const [session, setSession] = useState(undefined); // undefined = laden, null = uitgelogd
+  useEffect(() => {
+    if (!sb) { setSession(null); return; }
+    sb.auth.getSession().then(({ data }) => setSession(data.session || null));
+    const { data: { subscription } } = sb.auth.onAuthStateChange((_e, s) => setSession(s));
+    return () => subscription.unsubscribe();
+  }, []);
+  return session;
+}
+
+// ─── CLOUD DATA HOOK ────────────────────────────────────────────────────────
+// Houdt transactions + settings + userCatMap + dashSort in sync met Supabase
+function useCloudData(userId){
+  const [transactions, setTransactionsState] = useState([]);
+  const [settings, setSettingsState] = useState(DEFAULT_SETTINGS);
+  const [dashSort, setDashSortState] = useState("fixed");
+  const [userCatMap, setUserCatMapState] = useState({});
+  const [loading, setLoading] = useState(true);
+  const settingsTimer = useRef();
+  const dashSortTimer = useRef();
+  const catMapTimer = useRef();
+
+  // Load alles bij login
+  useEffect(() => {
+    if (!userId || !sb) return;
+    let cancelled = false;
+    (async () => {
+      setLoading(true);
+      const [{ data: txs }, { data: ud }] = await Promise.all([
+        sb.from("transactions").select("*").eq("user_id", userId),
+        sb.from("user_data").select("*").eq("user_id", userId).maybeSingle(),
+      ]);
+      if (cancelled) return;
+      setTransactionsState((txs||[]).map(t => ({
+        id: t.id, datum: t.datum, naam: t.naam,
+        bedrag: parseFloat(t.bedrag), afBij: t.af_bij, categorie: t.categorie || "Onbekend"
+      })));
+      if (ud) {
+        setSettingsState({
+          income: parseFloat(ud.income) || DEFAULT_SETTINGS.income,
+          categories: ud.categories || DEFAULT_SETTINGS.categories,
+        });
+        setDashSortState(ud.dash_sort || "fixed");
+        setUserCatMapState(ud.user_cat_map || {});
+      } else {
+        // Eerste login: maak een default user_data record
+        await sb.from("user_data").upsert({
+          user_id: userId,
+          income: DEFAULT_SETTINGS.income,
+          categories: DEFAULT_SETTINGS.categories,
+          dash_sort: "fixed",
+          user_cat_map: {}
+        });
+      }
+      setLoading(false);
+    })();
+    return () => { cancelled = true; };
+  }, [userId]);
+
+  // Debounced settings sync
+  function setSettings(newSettings){
+    const next = typeof newSettings === "function" ? newSettings(settings) : newSettings;
+    setSettingsState(next);
+    clearTimeout(settingsTimer.current);
+    settingsTimer.current = setTimeout(() => {
+      sb.from("user_data").update({
+        income: next.income,
+        categories: next.categories,
+        updated_at: new Date().toISOString()
+      }).eq("user_id", userId);
+    }, 400);
+  }
+  function setDashSort(value){
+    const v = typeof value === "function" ? value(dashSort) : value;
+    setDashSortState(v);
+    clearTimeout(dashSortTimer.current);
+    dashSortTimer.current = setTimeout(() => {
+      sb.from("user_data").update({ dash_sort: v }).eq("user_id", userId);
+    }, 400);
+  }
+  function setUserCatMap(newMap){
+    const v = typeof newMap === "function" ? newMap(userCatMap) : newMap;
+    setUserCatMapState(v);
+    clearTimeout(catMapTimer.current);
+    catMapTimer.current = setTimeout(() => {
+      sb.from("user_data").update({ user_cat_map: v }).eq("user_id", userId);
+    }, 600);
+  }
+
+  // Transactions: schrijf direct (delta-based)
+  async function setTransactions(updater){
+    const prev = transactions;
+    const next = typeof updater === "function" ? updater(prev) : updater;
+    setTransactionsState(next);
+    // Diff berekenen
+    const prevById = new Map(prev.map(t => [t.id, t]));
+    const nextById = new Map(next.map(t => [t.id, t]));
+    const toUpsert = [], toDelete = [];
+    nextById.forEach((t, id) => {
+      const p = prevById.get(id);
+      if (!p || p.categorie !== t.categorie || p.naam !== t.naam || p.bedrag !== t.bedrag || p.datum !== t.datum || p.afBij !== t.afBij) {
+        toUpsert.push({
+          id: t.id, user_id: userId,
+          datum: t.datum, naam: t.naam, bedrag: t.bedrag, af_bij: t.afBij, categorie: t.categorie
+        });
+      }
+    });
+    prevById.forEach((_, id) => { if (!nextById.has(id)) toDelete.push(id); });
+    if (toUpsert.length) sb.from("transactions").upsert(toUpsert);
+    if (toDelete.length) sb.from("transactions").delete().in("id", toDelete);
+  }
+
+  return { transactions, settings, dashSort, userCatMap, loading,
+           setTransactions, setSettings, setDashSort, setUserCatMap };
+}
+
+// ─── AUTH GATE ──────────────────────────────────────────────────────────────
+function AuthGate({ children }){
+  const session = useAuth();
+  if (session === undefined) {
+    return <div style={{display:"flex",alignItems:"center",justifyContent:"center",minHeight:"100vh",color:"#9AA5B4",fontSize:13}}>Laden…</div>;
+  }
+  if (!session) return <LoginScreen />;
+  return children(session);
+}
+
+function LoginScreen(){
+  const [mode, setMode] = useState("login");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [busy, setBusy] = useState(false);
+  const [err, setErr] = useState("");
+
+  async function submit(e){
+    e.preventDefault();
+    setErr("");
+    setBusy(true);
+    try {
+      if (mode === "login") {
+        const { error } = await sb.auth.signInWithPassword({ email, password });
+        if (error) throw error;
+      } else {
+        const { error } = await sb.auth.signUp({ email, password });
+        if (error) throw error;
+      }
+    } catch (e) {
+      setErr(e.message || "Er ging iets mis");
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  return (
+    <div style={{display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",minHeight:"100vh",padding:20,background:"#F4F6F9"}}>
+      <div style={{background:"white",borderRadius:16,boxShadow:"0 4px 20px rgba(0,0,0,0.08)",padding:"24px 22px",width:"100%",maxWidth:360}}>
+        <div style={{fontSize:22,fontWeight:800,color:"#1F4E79",marginBottom:4}}>Budget App</div>
+        <div style={{fontSize:13,color:"#9AA5B4",marginBottom:18}}>{mode==="login"?"Log in om verder te gaan":"Maak een account aan"}</div>
+        <form onSubmit={submit}>
+          <div style={{marginBottom:10}}>
+            <div style={{fontSize:11,fontWeight:700,color:"#8A9BB0",marginBottom:4,letterSpacing:0.6}}>E-MAIL</div>
+            <input type="email" value={email} onChange={e=>setEmail(e.target.value)} required autoComplete="email"
+              style={{width:"100%",padding:"10px 12px",borderRadius:8,border:"1px solid #E0E6ED",fontSize:14}} />
+          </div>
+          <div style={{marginBottom:14}}>
+            <div style={{fontSize:11,fontWeight:700,color:"#8A9BB0",marginBottom:4,letterSpacing:0.6}}>WACHTWOORD</div>
+            <input type="password" value={password} onChange={e=>setPassword(e.target.value)} required minLength={6}
+              autoComplete={mode==="login"?"current-password":"new-password"}
+              style={{width:"100%",padding:"10px 12px",borderRadius:8,border:"1px solid #E0E6ED",fontSize:14}} />
+          </div>
+          {err && <div style={{fontSize:12,color:"#E74C3C",marginBottom:10,fontWeight:600}}>{err}</div>}
+          <button type="submit" disabled={busy}
+            style={{width:"100%",padding:12,borderRadius:10,border:"none",background:busy?"#B0BEC5":"#1F4E79",color:"white",fontSize:14,fontWeight:700,cursor:busy?"not-allowed":"pointer",marginBottom:10}}>
+            {busy ? "Bezig…" : (mode==="login" ? "Inloggen" : "Account aanmaken")}
+          </button>
+        </form>
+        <button onClick={()=>{setMode(m=>m==="login"?"register":"login");setErr("");}}
+          style={{width:"100%",padding:8,border:"none",background:"transparent",color:"#1F4E79",fontSize:12,fontWeight:600,cursor:"pointer"}}>
+          {mode==="login" ? "Nog geen account? Registreren" : "Heb je al een account? Inloggen"}
+        </button>
+      </div>
+    </div>
+  );
+}
+
+// ─── MAIN APP ────────────────────────────────────────────────────────────────
+function App({ session }) {
+  const userId = session.user.id;
+  const cloud = useCloudData(userId);
+  const { transactions, settings, dashSort, userCatMap, loading,
+          setTransactions, setSettings, setDashSort, setUserCatMap } = cloud;
+  const [tab, setTab] = useState("dashboard");
+  // Per-tab selections, onafhankelijk
+  const [dashSel, setDashSel] = useState(null);       // maand "YYYY-MM" of "avg3"/"avg6"/...
+  const [txRange, setTxRange] = useState(null);        // {from:"YYYY-MM-DD", to:"YYYY-MM-DD"} of null (= alles)
+  const [anaSel, setAnaSel] = useState("per6");        // "per3"|"per6"|"per12"|"per24"|"per60"|"perAll"|"avg3"|...|"avg60"
+  const [importState, setImportState] = useState(null);
+  const [toast, setToast] = useState(null);
+
+  const months = useMemo(() => getMonths(transactions), [transactions]);
+  const today = new Date();
+  const currentYM = `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,"0")}`;
+  const activeDashSel = dashSel || currentYM;
+
+  function showToast(msg) {
+    setToast(msg);
+    setTimeout(() => setToast(null), 2800);
+  }
+
+  function handleImportConfirm(newTx) {
+    const existing = new Set(transactions.map(t => `${t.datum}|${t.naam}|${t.bedrag}`));
+    const fresh = newTx.filter(t => !existing.has(`${t.datum}|${t.naam}|${t.bedrag}`));
+    setTransactions(prev => [...fresh, ...prev]);
+    setImportState(null);
+    showToast(`${fresh.length} nieuwe transacties toegevoegd`);
+  }
+
+  if (loading) {
+    return <div style={{display:"flex",alignItems:"center",justifyContent:"center",minHeight:"100vh",color:"#9AA5B4",fontSize:13}}>Data laden…</div>;
+  }
+
+  return (
+    <div style={{background:"#F4F6F9",minHeight:"100vh",paddingBottom:72}}>
+      <Header tab={tab}>
+        {tab==="dashboard"   && <DashboardFilter selection={activeDashSel} months={months} onSelect={setDashSel} />}
+        {tab==="transacties" && <TransFilter range={txRange} onChange={setTxRange} transactions={transactions} />}
+        {/* Analyses heeft geen header-filter meer: inzichten zijn self-contained */}
+      </Header>
+      <div className="scroll-area" style={{height:"calc(100vh - 130px)",overflowY:"auto"}}>
+        {tab==="dashboard"   && <Dashboard transactions={transactions} settings={settings} selection={activeDashSel} months={months} setTransactions={setTransactions} showToast={showToast} dashSort={dashSort} setDashSort={setDashSort} />}
+        {tab==="transacties" && <Transacties transactions={transactions} settings={settings} range={txRange} setTransactions={setTransactions} onImport={setImportState} showToast={showToast} />}
+        {tab==="analyses"    && <Analyses transactions={transactions} settings={settings} months={months} />}
+        {tab==="instellingen"&& <Instellingen settings={settings} setSettings={setSettings} transactions={transactions} setTransactions={setTransactions} showToast={showToast} dashSort={dashSort} setDashSort={setDashSort} session={session} />}
+      </div>
+      <Nav tab={tab} setTab={setTab} />
+      {importState && <ImportModal state={importState} setState={setImportState} onConfirm={handleImportConfirm} cats={settings.categories} existing={transactions} />}
+      {toast && <div style={{position:"fixed",bottom:88,left:"50%",transform:"translateX(-50%)",background:"#1F4E79",color:"white",padding:"10px 20px",borderRadius:20,fontSize:13,fontWeight:600,zIndex:999,boxShadow:"0 4px 12px rgba(0,0,0,0.2)"}}>{toast}</div>}
+    </div>
+  );
+}
+
+// ─── HEADER ─────────────────────────────────────────────────────────────────
+function Header({ tab, children }) {
+  const titles = { dashboard:"Budget Overzicht", transacties:"Transacties", analyses:"Analyses", instellingen:"Instellingen" };
+  return (
+    <div style={{background:"#1F4E79",padding:"18px 18px 14px",color:"white"}}>
+      <div style={{fontSize:12,opacity:0.7,marginBottom:2}}>Joris Boes 👋</div>
+      <div style={{fontSize:21,fontWeight:800,letterSpacing:-0.3}}>{titles[tab] || "Budget"}</div>
+      {children}
+    </div>
+  );
+}
+
+// Chip style helpers
+const chipBase = (active) => ({
+  padding:"5px 13px",borderRadius:20,border:"none",fontSize:12,fontWeight:600,whiteSpace:"nowrap",cursor:"pointer",
+  background: active ? "white" : "rgba(255,255,255,0.18)",
+  color: active ? "#1F4E79" : "white"
+});
+
+// ─── DASHBOARD FILTER ───────────────────────────────────────────────────────
+function DashboardFilter({ selection, months, onSelect }) {
+  const today = new Date();
+  const currentYM = `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,"0")}`;
+  const isCurrent = selection === currentYM;
+  const otherMonths = months.filter(m => m !== currentYM).slice(0, 11);
+  return (
+    <div style={{marginTop:10}}>
+      {/* Rij 1: maanden */}
+      <div style={{display:"flex",gap:6,overflowX:"auto",paddingBottom:2}}>
+        <button onClick={()=>onSelect(currentYM)} style={chipBase(isCurrent)}>Deze maand</button>
+        {otherMonths.map(m => (
+          <button key={m} onClick={()=>onSelect(m)} style={chipBase(selection===m)}>
+            {monthLabel(m)}
+          </button>
+        ))}
+      </div>
+      {/* Rij 2: gemiddeldes */}
+      <div style={{display:"flex",gap:6,overflowX:"auto",paddingTop:6,paddingBottom:2}}>
+        {AVG_PERIODS.map(p => {
+          const short = p.id==="avg3"?"Gem 3M":p.id==="avg6"?"Gem 6M":p.id==="avg12"?"Gem 1J":p.id==="avg24"?"Gem 2J":"Gem 5J";
+          return <button key={p.id} onClick={()=>onSelect(p.id)} style={chipBase(selection===p.id)}>{short}</button>;
+        })}
+      </div>
+    </div>
+  );
+}
+
+// ─── ANALYSES FILTER ────────────────────────────────────────────────────────
+const ANA_PERIODS = [
+  { id:"per3",   label:"3M",  months:3  },
+  { id:"per6",   label:"6M",  months:6  },
+  { id:"per12",  label:"1J",  months:12 },
+  { id:"per24",  label:"2J",  months:24 },
+  { id:"per60",  label:"5J",  months:60 },
+  { id:"perAll", label:"Alles", months:9999 },
+];
+const ANA_AVGS = [
+  { id:"avg3",  label:"Gem 3M" },
+  { id:"avg6",  label:"Gem 6M" },
+  { id:"avg12", label:"Gem 1J" },
+  { id:"avg24", label:"Gem 2J" },
+  { id:"avg60", label:"Gem 5J" },
+];
+function AnalysesFilter({ selection, onSelect }) {
+  return (
+    <div style={{display:"flex",gap:6,marginTop:10,overflowX:"auto",paddingBottom:2}}>
+      {ANA_PERIODS.map(p => (
+        <button key={p.id} onClick={()=>onSelect(p.id)} style={chipBase(selection===p.id)}>{p.label}</button>
+      ))}
+      <div style={{width:1,background:"rgba(255,255,255,0.25)",margin:"0 4px",flexShrink:0}} />
+      {ANA_AVGS.map(p => (
+        <button key={p.id} onClick={()=>onSelect(p.id)} style={chipBase(selection===p.id)}>{p.label}</button>
+      ))}
+    </div>
+  );
+}
+
+// ─── TRANSACTIES FILTER (datumkiezer) ───────────────────────────────────────
+function todayStr(){ return new Date().toISOString().slice(0,10); }
+function addMonths(ymd, delta){
+  const [y,m,d] = ymd.split("-").map(Number);
+  const dt = new Date(y, m-1+delta, d);
+  return dt.toISOString().slice(0,10);
+}
+function rangeShortcut(id, txs){
+  const today = todayStr();
+  const y = today.slice(0,4), m = today.slice(5,7);
+  if (id==="thisMonth") return { from:`${y}-${m}-01`, to:today };
+  if (id==="lastMonth"){
+    const first = `${y}-${m}-01`;
+    const end = addMonths(first, 0); // last day prev month = day before first of this month
+    const endDt = new Date(end); endDt.setDate(endDt.getDate()-1);
+    const startDt = new Date(endDt.getFullYear(), endDt.getMonth(), 1);
+    return { from:startDt.toISOString().slice(0,10), to:endDt.toISOString().slice(0,10) };
+  }
+  if (id==="last3")  return { from:addMonths(today,-3), to:today };
+  if (id==="last6")  return { from:addMonths(today,-6), to:today };
+  if (id==="thisYear") return { from:`${y}-01-01`, to:today };
+  if (id==="all") {
+    if (!txs || txs.length===0) return { from:"2000-01-01", to:today };
+    const sorted = [...txs].sort((a,b)=>a.datum.localeCompare(b.datum));
+    return { from:sorted[0].datum, to:today };
+  }
+  return null;
+}
+function fmtDateShort(ymd){
+  const parts = ymd.split("-");
+  const m = { "01":"jan","02":"feb","03":"mrt","04":"apr","05":"mei","06":"jun","07":"jul","08":"aug","09":"sep","10":"okt","11":"nov","12":"dec"}[parts[1]]||parts[1];
+  return `${parseInt(parts[2],10)} ${m} ${parts[0]}`;
+}
+function TransFilter({ range, onChange, transactions }) {
+  const [open, setOpen] = useState(false);
+  const [from, setFrom] = useState(range?.from || "");
+  const [to, setTo] = useState(range?.to || "");
+  const shortcuts = [
+    { id:"thisMonth", label:"Deze maand" },
+    { id:"lastMonth", label:"Vorige maand" },
+    { id:"last3", label:"Laatste 3 mnd" },
+    { id:"last6", label:"Laatste 6 mnd" },
+    { id:"thisYear", label:"Dit jaar" },
+    { id:"all", label:"Alles" },
+  ];
+  const label = range ? `${fmtDateShort(range.from)} – ${fmtDateShort(range.to)}` : "Alle transacties";
+
+  function pickShortcut(id){
+    const r = rangeShortcut(id, transactions);
+    if (r){ setFrom(r.from); setTo(r.to); onChange(r); }
+  }
+  function apply(){
+    if (!from || !to) return;
+    onChange({ from, to });
+    setOpen(false);
+  }
+  function clearAll(){
+    setFrom(""); setTo(""); onChange(null); setOpen(false);
+  }
+
+  return (
+    <>
+      <div style={{marginTop:10,display:"flex",gap:6,alignItems:"center"}}>
+        <button onClick={()=>setOpen(o=>!o)}
+          style={{display:"inline-flex",alignItems:"center",gap:8,padding:"7px 14px",borderRadius:20,border:"none",
+            background:"white",color:"#1F4E79",fontSize:13,fontWeight:700,cursor:"pointer",boxShadow:"0 2px 6px rgba(0,0,0,0.15)"}}>
+          <span>📅</span><span>{label}</span>
+        </button>
+      </div>
+      {open && (
+        <div style={{position:"fixed",inset:0,background:"rgba(0,0,0,0.5)",zIndex:200,display:"flex",alignItems:"center",justifyContent:"center",padding:20}}
+             onClick={e=>{if(e.target===e.currentTarget)setOpen(false);}}>
+          <div style={{background:"white",borderRadius:16,maxWidth:380,width:"100%",padding:"18px 20px",boxShadow:"0 10px 30px rgba(0,0,0,0.3)",color:"#2C3E50"}}>
+            <div style={{fontSize:16,fontWeight:800,color:"#1F4E79",marginBottom:12}}>Periode kiezen</div>
+            <div style={{fontSize:11,fontWeight:700,color:"#8A9BB0",marginBottom:8,letterSpacing:0.6}}>SNELKEUZE</div>
+            <div style={{display:"flex",flexWrap:"wrap",gap:6,marginBottom:14}}>
+              {shortcuts.map(s => (
+                <button key={s.id} onClick={()=>pickShortcut(s.id)}
+                  style={{padding:"5px 12px",borderRadius:16,border:"1px solid #E0E6ED",background:"#F8FAFB",color:"#1F4E79",fontSize:12,fontWeight:600,cursor:"pointer"}}>
+                  {s.label}
+                </button>
+              ))}
+            </div>
+            <div style={{fontSize:11,fontWeight:700,color:"#8A9BB0",marginBottom:8,letterSpacing:0.6}}>AANGEPAST</div>
+            <div style={{display:"flex",gap:8,marginBottom:14}}>
+              <div style={{flex:1}}>
+                <div style={{fontSize:10,color:"#8A9BB0",marginBottom:3}}>Van</div>
+                <input type="date" value={from} onChange={e=>setFrom(e.target.value)}
+                  style={{width:"100%",padding:"8px 10px",borderRadius:8,border:"1px solid #E0E6ED",fontSize:13}} />
+              </div>
+              <div style={{flex:1}}>
+                <div style={{fontSize:10,color:"#8A9BB0",marginBottom:3}}>Tot</div>
+                <input type="date" value={to} onChange={e=>setTo(e.target.value)}
+                  style={{width:"100%",padding:"8px 10px",borderRadius:8,border:"1px solid #E0E6ED",fontSize:13}} />
+              </div>
+            </div>
+            <div style={{display:"flex",gap:10}}>
+              <button onClick={clearAll} style={{flex:1,padding:11,borderRadius:10,border:"1px solid #E0E6ED",background:"white",color:"#5A6A7A",fontSize:13,fontWeight:600}}>Alles</button>
+              <button onClick={apply} style={{flex:1,padding:11,borderRadius:10,border:"none",background:"#1F4E79",color:"white",fontSize:13,fontWeight:700}}>Toepassen</button>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  );
+}
+
+// ─── NAV ─────────────────────────────────────────────────────────────────────
+const NAV = [{id:"dashboard",label:"Dashboard",icon:"⊞"},{id:"transacties",label:"Transacties",icon:"↕"},{id:"analyses",label:"Analyses",icon:"◎"},{id:"instellingen",label:"Instellingen",icon:"⚙"}];
+function Nav({ tab, setTab }) {
+  return (
+    <div style={{position:"fixed",bottom:0,left:"50%",transform:"translateX(-50%)",width:"100%",maxWidth:480,background:"white",borderTop:"1px solid #E8ECF0",display:"flex",zIndex:100}}>
+      {NAV.map(n => (
+        <button key={n.id} onClick={()=>setTab(n.id)}
+          style={{flex:1,padding:"9px 0 7px",border:"none",background:"transparent",
+            color:tab===n.id?"#1F4E79":"#9AA5B4",display:"flex",flexDirection:"column",alignItems:"center",gap:2}}>
+          <span style={{fontSize:18}}>{n.icon}</span>
+          <span style={{fontSize:10,fontWeight:600}}>{n.label}</span>
+        </button>
+      ))}
+    </div>
+  );
+}
+
+// ─── DASHBOARD ───────────────────────────────────────────────────────────────
+const DASH_SORT_OPTIONS = [
+  { id:"fixed",   label:"Vast" },
+  { id:"topFirst",label:"Hoogste bovenaan" },
+  { id:"highLow", label:"Hoog → laag" },
+];
+function Dashboard({ transactions, settings, selection, months, setTransactions, showToast, dashSort, setDashSort }) {
+  const { income, categories } = settings;
+  const isAvg = isAvgSel(selection);
+  const avgN = isAvg ? avgPeriodMonths(selection) : 0;
+  const avgMonths = isAvg ? months.slice(0, avgN) : [];
+  const divisor = isAvg ? Math.max(avgMonths.length, 1) : 1;
+  const [openCat, setOpenCat] = useState(null);
+  const [openIncome, setOpenIncome] = useState(false);
+
+  function inScope(t){
+    if (isAvg) return avgMonths.includes(t.datum.slice(0,7));
+    return t.datum.slice(0,7) === selection;
+  }
+
+  function catAmount(catName) {
+    if (!isAvg) return getCatTotal(transactions, catName, selection);
+    const sum = avgMonths.reduce((s,m) => s + getCatTotal(transactions, catName, m), 0);
+    return sum / divisor;
+  }
+
+  // Uitgaven (Af, niet-skip cats)
+  const spendSum = transactions.filter(t => t.afBij==="Af" && !SKIP_CATS.has(t.categorie) && inScope(t))
+    .reduce((s,t)=>s+t.bedrag,0);
+  const totalSpent = spendSum / divisor;
+
+  // Inkomsten (Bij, alle groene bedragen)
+  const incomeSum = transactions.filter(t => t.afBij==="Bij" && inScope(t))
+    .reduce((s,t)=>s+t.bedrag,0);
+  const totalIncome = incomeSum / divisor;
+
+  const netto = totalIncome - totalSpent;
+  const pct = income > 0 ? totalSpent/income : 0;
+  const over = pct > 1;
+
+  const isoNow = new Date().toISOString().slice(0,7);
+  const isCurrent = !isAvg && selection === isoNow;
+  const headerLabel = isAvg
+    ? `Gemiddeld p/mnd — ${AVG_PERIODS.find(p=>p.id===selection)?.label.replace("Gem. ","")}`
+    : (isCurrent ? `Deze maand (${monthLabel(selection)})` : monthLabel(selection));
+  const avgInfo = isAvg && avgMonths.length < avgN ? ` · ${avgMonths.length} mnd data` : "";
+
+  return (
+    <div style={{padding:14}}>
+      {/* Header label */}
+      <div style={{fontSize:11,fontWeight:700,color:"#8A9BB0",marginBottom:8,letterSpacing:0.8,textTransform:"uppercase"}}>
+        {headerLabel}{avgInfo}
+      </div>
+
+      {/* 2 blokken naast elkaar: Uitgegeven + Ontvangen */}
+      <div style={{display:"flex",gap:10,marginBottom:10}}>
+        <div style={{flex:1,background:"white",borderRadius:14,padding:"12px 14px",boxShadow:"0 1px 6px rgba(0,0,0,0.06)",borderTop:"3px solid #E74C3C"}}>
+          <div style={{fontSize:10,color:"#9AA5B4",fontWeight:600,textTransform:"uppercase",letterSpacing:0.6}}>Uitgegeven{isAvg?" /mnd":""}</div>
+          <div style={{fontSize:22,fontWeight:800,color:"#E74C3C",marginTop:3,lineHeight:1.1}}>€{fmt(totalSpent)}</div>
+          <div style={{fontSize:11,color:"#9AA5B4",marginTop:2}}>{Math.round(pct*100)}% van inkomen</div>
+        </div>
+        <div onClick={()=>setOpenIncome(true)} style={{flex:1,background:"white",borderRadius:14,padding:"12px 14px",boxShadow:"0 1px 6px rgba(0,0,0,0.06)",borderTop:"3px solid #27AE60",cursor:"pointer"}}>
+          <div style={{fontSize:10,color:"#9AA5B4",fontWeight:600,textTransform:"uppercase",letterSpacing:0.6}}>Ontvangen{isAvg?" /mnd":""}</div>
+          <div style={{fontSize:22,fontWeight:800,color:"#27AE60",marginTop:3,lineHeight:1.1}}>€{fmt(totalIncome)}</div>
+          <div style={{fontSize:11,color:"#9AA5B4",marginTop:2}}>budget €{fmt(income)} <span style={{color:"#CBD5E0"}}>›</span></div>
+        </div>
+      </div>
+
+      {/* Netto + voortgangsbalk */}
+      <div style={{background:"white",borderRadius:14,padding:"12px 14px",marginBottom:12,boxShadow:"0 1px 6px rgba(0,0,0,0.06)"}}>
+        <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+          <div style={{fontSize:12,color:"#9AA5B4",fontWeight:600}}>Netto {isAvg?"p/mnd":"deze periode"}</div>
+          <div style={{fontSize:18,fontWeight:800,color:netto>=0?"#27AE60":"#E74C3C"}}>
+            {netto>=0?"+":"−"}€{fmt(Math.abs(netto))}
+          </div>
+        </div>
+        <div style={{marginTop:10,background:"#F0F4F8",borderRadius:6,height:7,overflow:"hidden"}}>
+          <div style={{height:"100%",width:`${Math.min(pct*100,100)}%`,background:over?"#E74C3C":"#1F4E79",borderRadius:6,transition:"width 0.3s"}} />
+        </div>
+        <div style={{display:"flex",justifyContent:"space-between",marginTop:5,fontSize:10,color:"#9AA5B4"}}>
+          <span>Uitgegeven €{fmt(totalSpent)}</span><span>Budget €{fmt(income)}</span>
+        </div>
+      </div>
+
+      {/* Categories */}
+      <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:8}}>
+        <div style={{fontSize:11,fontWeight:700,color:"#8A9BB0",letterSpacing:0.8}}>
+          CATEGORIEËN{isAvg?" (GEM. P/MND)":""}
+        </div>
+        <div style={{fontSize:10,color:"#B0BEC5"}}>klik voor details</div>
+      </div>
+      <div style={{display:"flex",gap:6,overflowX:"auto",paddingBottom:6,marginBottom:8}}>
+        {DASH_SORT_OPTIONS.map(o => (
+          <button key={o.id} onClick={()=>setDashSort(o.id)}
+            style={{padding:"4px 12px",borderRadius:14,border:"none",fontSize:11,fontWeight:600,whiteSpace:"nowrap",cursor:"pointer",
+              background:dashSort===o.id?"#1F4E79":"white",color:dashSort===o.id?"white":"#5A6A7A",
+              boxShadow:"0 1px 3px rgba(0,0,0,0.08)"}}>
+            {o.label}
+          </button>
+        ))}
+      </div>
+      {(() => {
+        // Bepaal weergavevolgorde
+        const catsWithAmt = categories.map(c => ({ ...c, _amt: catAmount(c.name) }));
+        let ordered;
+        if (dashSort === "highLow") {
+          ordered = [...catsWithAmt].sort((a,b) => Math.abs(b._amt) - Math.abs(a._amt));
+        } else if (dashSort === "topFirst") {
+          const top = [...catsWithAmt].sort((a,b) => Math.abs(b._amt) - Math.abs(a._amt))[0];
+          ordered = top ? [top, ...catsWithAmt.filter(c => c.name !== top.name)] : catsWithAmt;
+        } else {
+          ordered = catsWithAmt;
+        }
+        return ordered;
+      })().map((cat, idx) => {
+        const actual = cat._amt;
+        const budget = income * cat.pct;
+        const p = budget > 0 ? actual/budget : 0;
+        const isOver = p > 1 && !cat.skipRed;
+        const isTopLabel = dashSort === "topFirst" && idx === 0 && Math.abs(actual) > 0;
+        const i = idx;
+        return (
+          <div key={cat.name}
+            onClick={()=>setOpenCat(cat)}
+            style={{background:"white",borderRadius:12,padding:"11px 14px",marginBottom:8,boxShadow:"0 1px 4px rgba(0,0,0,0.05)",borderLeft:`4px solid ${cat.color}`,cursor:"pointer",position:"relative"}}>
+            {isTopLabel && <div style={{position:"absolute",top:-8,left:10,background:"#1F4E79",color:"white",fontSize:9,fontWeight:700,padding:"2px 7px",borderRadius:10,letterSpacing:0.3}}>HOOGSTE</div>}
+            <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+              <div style={{display:"flex",alignItems:"center",gap:9}}>
+                <span style={{fontSize:18}}>{cat.icon}</span>
+                <div>
+                  <div style={{fontSize:13,fontWeight:600,color:"#2C3E50"}}>{cat.name} <span style={{color:"#CBD5E0",fontWeight:400}}>›</span></div>
+                  <div style={{fontSize:11,color:"#B0BEC5"}}>Budget €{fmt(budget)}</div>
+                </div>
+              </div>
+              <div style={{textAlign:"right"}}>
+                <div style={{fontSize:14,fontWeight:700,color:isOver?"#E74C3C":"#2C3E50"}}>€{fmt(actual)}</div>
+                <div style={{fontSize:11,fontWeight:600,color:isOver?"#E74C3C":"#27AE60"}}>{Math.round(p*100)}%</div>
+              </div>
+            </div>
+            {actual !== 0 && (
+              <div style={{marginTop:8,background:"#F0F4F8",borderRadius:4,height:5,overflow:"hidden"}}>
+                <div style={{height:"100%",width:`${Math.min(Math.abs(p)*100,100)}%`,background:isOver?"#E74C3C":cat.color,borderRadius:4,transition:"width 0.3s"}} />
+              </div>
+            )}
+          </div>
+        );
+      })}
+
+      {openCat && (
+        <DashCatTxModal
+          cat={openCat}
+          onClose={()=>setOpenCat(null)}
+          transactions={transactions}
+          inScopeFilter={inScope}
+          categories={categories}
+          setTransactions={setTransactions}
+          showToast={showToast}
+          scopeLabel={isAvg ? `${avgMonths.length} maanden` : monthLabel(selection)}
+        />
+      )}
+      {openIncome && (
+        <IncomeModal
+          onClose={()=>setOpenIncome(false)}
+          transactions={transactions}
+          inScopeFilter={inScope}
+          totalIncome={totalIncome}
+          scopeLabel={isAvg ? `${avgMonths.length} maanden` : monthLabel(selection)}
+        />
+      )}
+    </div>
+  );
+}
+
+// ─── INKOMSTEN MODAL ─────────────────────────────────────────────────────────
+function IncomeModal({ onClose, transactions, inScopeFilter, totalIncome, scopeLabel }) {
+  const txs = useMemo(() => {
+    return transactions
+      .filter(t => t.afBij === "Bij" && inScopeFilter(t))
+      .sort((a, b) => b.datum.localeCompare(a.datum));
+  }, [transactions, inScopeFilter]);
+
+  return (
+    <div style={{position:"fixed",inset:0,background:"rgba(0,0,0,0.5)",zIndex:300,display:"flex",alignItems:"flex-end",justifyContent:"center"}}
+         onClick={e=>{if(e.target===e.currentTarget)onClose();}}>
+      <div style={{background:"white",borderRadius:"20px 20px 0 0",maxWidth:480,width:"100%",maxHeight:"85vh",display:"flex",flexDirection:"column"}}>
+        <div style={{padding:"14px 18px 10px",borderBottom:"1px solid #F0F4F8",display:"flex",alignItems:"center",gap:10}}>
+          <div style={{minWidth:40,width:40,height:40,borderRadius:10,background:"#D5F5E3",display:"flex",alignItems:"center",justifyContent:"center",fontSize:20}}>💶</div>
+          <div style={{flex:1}}>
+            <div style={{fontSize:15,fontWeight:800,color:"#1F4E79"}}>Inkomsten</div>
+            <div style={{fontSize:11,color:"#9AA5B4"}}>{txs.length} transacties · €{fmt(totalIncome)} · {scopeLabel}</div>
+          </div>
+          <button onClick={onClose} style={{border:"none",background:"transparent",fontSize:22,color:"#9AA5B4",cursor:"pointer",padding:4}}>×</button>
+        </div>
+        <div style={{flex:1,overflowY:"auto",padding:"10px 14px 14px"}}>
+          {txs.length === 0 && <div style={{textAlign:"center",color:"#9AA5B4",padding:30,fontSize:13}}>Geen inkomsten in deze periode</div>}
+          {txs.map(t => (
+            <div key={t.id} style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"10px 12px",marginBottom:6,background:"#F8FAFB",borderRadius:10,borderLeft:"3px solid #27AE60"}}>
+              <div style={{flex:1,minWidth:0}}>
+                <div style={{fontSize:13,fontWeight:600,color:"#2C3E50",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{t.naam}</div>
+                <div style={{fontSize:11,color:"#9AA5B4",marginTop:1}}>{t.datum.split("-").reverse().join("-")} · {t.categorie}</div>
+              </div>
+              <div style={{fontSize:14,fontWeight:700,color:"#27AE60",marginLeft:10,whiteSpace:"nowrap"}}>+€{fmt(t.bedrag)}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ─── DASHBOARD CATEGORIE-DOORKLIK ───────────────────────────────────────────
+function DashCatTxModal({ cat, onClose, transactions, inScopeFilter, categories, setTransactions, showToast, scopeLabel }){
+  const [sortBy, setSortBy] = useState("dateDesc");
+  const [pendingChange, setPendingChange] = useState(null);
+  const allCatNames = [...categories.map(c=>c.name),"Inkomen","Interne transfer","Onbekend"];
+
+  const txs = useMemo(()=>{
+    let list = transactions.filter(t => t.categorie === cat.name && inScopeFilter(t));
+    const byDateDesc = (a,b) => b.datum.localeCompare(a.datum);
+    const byDateAsc  = (a,b) => a.datum.localeCompare(b.datum);
+    const byAmtDesc  = (a,b) => Math.abs(b.bedrag) - Math.abs(a.bedrag);
+    const byAmtAsc   = (a,b) => Math.abs(a.bedrag) - Math.abs(b.bedrag);
+    const sorter = sortBy==="dateAsc"?byDateAsc : sortBy==="amtDesc"?byAmtDesc : sortBy==="amtAsc"?byAmtAsc : byDateDesc;
+    return list.sort(sorter);
+  }, [transactions, cat, sortBy]);
+
+  const totaal = txs.filter(t=>t.afBij==="Af").reduce((s,t)=>s+t.bedrag,0);
+
+  function requestChangeCat(tx, newCat){
+    if (tx.categorie === newCat) return;
+    setPendingChange({ tx, newCat });
+  }
+  function confirmChangeCat(){
+    if (!pendingChange) return;
+    const { tx, newCat } = pendingChange;
+    learnCat(tx.naam, newCat);
+    setTransactions(prev => prev.map(t => t.id===tx.id ? {...t, categorie:newCat} : t));
+    setPendingChange(null);
+    if (showToast) showToast(`Categorie gewijzigd naar ${newCat}`);
+  }
+
+  const catColor = (name) => categories.find(c=>c.name===name)?.color ?? "#E8ECF0";
+  const catIcon  = (name) => categories.find(c=>c.name===name)?.icon ?? "💶";
+
+  return (
+    <div style={{position:"fixed",inset:0,background:"rgba(0,0,0,0.5)",zIndex:300,display:"flex",alignItems:"flex-end",justifyContent:"center"}}
+         onClick={e=>{if(e.target===e.currentTarget)onClose();}}>
+      <div style={{background:"white",borderRadius:"20px 20px 0 0",maxWidth:480,width:"100%",maxHeight:"85vh",display:"flex",flexDirection:"column"}}>
+        <div style={{padding:"14px 18px 10px",borderBottom:"1px solid #F0F4F8",display:"flex",alignItems:"center",gap:10}}>
+          <div style={{minWidth:40,width:40,height:40,borderRadius:10,background:cat.color,display:"flex",alignItems:"center",justifyContent:"center",fontSize:20}}>{cat.icon}</div>
+          <div style={{flex:1}}>
+            <div style={{fontSize:15,fontWeight:800,color:"#1F4E79"}}>{cat.name}</div>
+            <div style={{fontSize:11,color:"#9AA5B4"}}>{txs.length} transacties · €{fmt(totaal)} · {scopeLabel}</div>
+          </div>
+          <button onClick={onClose} style={{border:"none",background:"transparent",fontSize:22,color:"#9AA5B4",cursor:"pointer",padding:4}}>×</button>
+        </div>
+        <div style={{padding:"8px 14px 0",display:"flex",gap:6,overflowX:"auto"}}>
+          {SORT_OPTIONS.map(s => (
+            <button key={s.id} onClick={()=>setSortBy(s.id)}
+              style={{padding:"4px 10px",borderRadius:14,border:"none",fontSize:11,fontWeight:600,whiteSpace:"nowrap",
+                background:sortBy===s.id?"#1F4E79":"#F0F4F8",color:sortBy===s.id?"white":"#5A6A7A"}}>
+              {s.label}
+            </button>
+          ))}
+        </div>
+        <div style={{flex:1,overflowY:"auto",padding:"10px 14px 14px"}}>
+          {txs.length === 0 && <div style={{textAlign:"center",color:"#9AA5B4",padding:30,fontSize:13}}>Geen transacties</div>}
+          {txs.map(t => (
+            <TransRow key={t.id} tx={t} catColor={catColor} catIcon={catIcon}
+              allCats={allCatNames}
+              onChange={(id,c)=>requestChangeCat(t,c)} />
+          ))}
+        </div>
+      </div>
+      {pendingChange && (
+        <ConfirmDialog
+          title="Categorie wijzigen?"
+          body={<div style={{fontSize:13,color:"#2C3E50",lineHeight:1.5}}>
+            <div style={{marginBottom:8,fontWeight:600}}>{pendingChange.tx.naam}</div>
+            <div>Van <b>{pendingChange.tx.categorie}</b> naar <b>{pendingChange.newCat}</b>?</div>
+          </div>}
+          confirmLabel="Wijzigen"
+          onCancel={()=>setPendingChange(null)}
+          onConfirm={confirmChangeCat}
+        />
+      )}
+    </div>
+  );
+}
+
+// ─── TRANSACTIES ─────────────────────────────────────────────────────────────
+const SORT_OPTIONS = [
+  { id:"dateDesc", label:"Datum ↓" },
+  { id:"dateAsc",  label:"Datum ↑" },
+  { id:"amtDesc",  label:"Bedrag ↓" },
+  { id:"amtAsc",   label:"Bedrag ↑" },
+];
+function Transacties({ transactions, settings, range, setTransactions, onImport, showToast }) {
+  const [search, setSearch] = useState("");
+  const [filterCat, setFilterCat] = useState("Alle");
+  const [sortBy, setSortBy] = useState("dateDesc");
+  const [pendingChange, setPendingChange] = useState(null); // {tx, newCat}
+  const fileRef = useRef();
+
+  const allCats = ["Alle", ...settings.categories.map(c=>c.name), "Inkomen","Interne transfer","Onbekend"];
+
+  const filtered = useMemo(() => {
+    let tx = transactions.slice();
+    if (range && range.from && range.to) {
+      tx = tx.filter(t => t.datum >= range.from && t.datum <= range.to);
+    }
+    if (filterCat !== "Alle") tx = tx.filter(t => t.categorie === filterCat);
+    if (search) {
+      const q = search.toLowerCase();
+      tx = tx.filter(t => t.naam.toLowerCase().includes(q) || t.categorie.toLowerCase().includes(q));
+    }
+    const byDateDesc = (a,b) => b.datum.localeCompare(a.datum);
+    const byDateAsc  = (a,b) => a.datum.localeCompare(b.datum);
+    const byAmtDesc  = (a,b) => Math.abs(b.bedrag) - Math.abs(a.bedrag);
+    const byAmtAsc   = (a,b) => Math.abs(a.bedrag) - Math.abs(b.bedrag);
+    const sorter = sortBy==="dateAsc"?byDateAsc : sortBy==="amtDesc"?byAmtDesc : sortBy==="amtAsc"?byAmtAsc : byDateDesc;
+    return tx.sort(sorter);
+  }, [transactions, range, filterCat, search, sortBy]);
+
+  const [showFormatInfo, setShowFormatInfo] = useState(false);
+  function handleFile(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = ev => {
+      const rawText = ev.target.result;
+      const { bank, rows } = parseCSV(rawText);
+      onImport({ pending: rows, step: "preview", rawText, bank, fileName: file.name });
+    };
+    reader.readAsText(file, "utf-8");
+    e.target.value = "";
+  }
+
+  function requestChangeCat(tx, newCat) {
+    if (tx.categorie === newCat) return;
+    setPendingChange({ tx, newCat });
+  }
+  function confirmChangeCat() {
+    if (!pendingChange) return;
+    const { tx, newCat } = pendingChange;
+    learnCat(tx.naam, newCat);
+    setTransactions(prev => prev.map(t => t.id===tx.id ? {...t,categorie:newCat} : t));
+    setPendingChange(null);
+    if (showToast) showToast(`Categorie gewijzigd naar ${newCat}`);
+  }
+
+  const catColor = (name) => settings.categories.find(c=>c.name===name)?.color ?? "#E8ECF0";
+  const catIcon  = (name) => settings.categories.find(c=>c.name===name)?.icon ?? "💶";
+
+  return (
+    <div style={{padding:14}}>
+      {/* Search + Import */}
+      <div style={{display:"flex",gap:8,marginBottom:10,alignItems:"center"}}>
+        <input value={search} onChange={e=>setSearch(e.target.value)} placeholder="Zoek..."
+          style={{flex:1,padding:"9px 12px",borderRadius:10,border:"1px solid #E0E6ED",fontSize:13,background:"white"}} />
+        <button onClick={()=>fileRef.current.click()}
+          style={{padding:"9px 14px",borderRadius:10,border:"none",background:"#1F4E79",color:"white",fontSize:12,fontWeight:700,whiteSpace:"nowrap"}}>
+          + Import
+        </button>
+        <button onClick={()=>setShowFormatInfo(true)} title="Ondersteunde formaten"
+          style={{width:30,height:30,borderRadius:15,border:"1px solid #E0E6ED",background:"white",color:"#1F4E79",fontSize:14,fontWeight:700,cursor:"pointer",padding:0}}>
+          ℹ
+        </button>
+        <input type="file" ref={fileRef} accept=".csv,.txt" onChange={handleFile} style={{display:"none"}} />
+      </div>
+
+      {showFormatInfo && (
+        <div style={{position:"fixed",inset:0,background:"rgba(0,0,0,0.5)",zIndex:300,display:"flex",alignItems:"center",justifyContent:"center",padding:20}}
+             onClick={e=>{if(e.target===e.currentTarget)setShowFormatInfo(false);}}>
+          <div style={{background:"white",borderRadius:16,maxWidth:380,width:"100%",padding:"18px 20px",boxShadow:"0 10px 30px rgba(0,0,0,0.3)"}}>
+            <div style={{fontSize:16,fontWeight:800,color:"#1F4E79",marginBottom:12}}>Ondersteunde formaten</div>
+            <div style={{fontSize:13,color:"#2C3E50",lineHeight:1.6,marginBottom:14}}>
+              De app herkent automatisch CSV-exports van:
+              <div style={{marginTop:10,display:"flex",flexDirection:"column",gap:6}}>
+                <div style={{display:"flex",gap:8,alignItems:"center"}}><span style={{width:60,fontWeight:700,color:"#1F4E79"}}>ING</span><span style={{color:"#5A6A7A"}}>Mijn ING · CSV-export</span></div>
+                <div style={{display:"flex",gap:8,alignItems:"center"}}><span style={{width:60,fontWeight:700,color:"#1F4E79"}}>Rabobank</span><span style={{color:"#5A6A7A"}}>Rabo Internet Bankieren · CSV</span></div>
+                <div style={{display:"flex",gap:8,alignItems:"center"}}><span style={{width:60,fontWeight:700,color:"#1F4E79"}}>ABN AMRO</span><span style={{color:"#5A6A7A"}}>TAB/CSV-export</span></div>
+                <div style={{display:"flex",gap:8,alignItems:"center"}}><span style={{width:60,fontWeight:700,color:"#1F4E79"}}>bunq</span><span style={{color:"#5A6A7A"}}>CSV-export</span></div>
+              </div>
+              <div style={{marginTop:12,fontSize:12,color:"#9AA5B4"}}>
+                Bestandstypen: <b>.csv</b>, <b>.txt</b>
+              </div>
+              <div style={{marginTop:6,fontSize:12,color:"#9AA5B4"}}>
+                Herkent de app het formaat niet? Dan kies je handmatig de bank in de preview.
+              </div>
+            </div>
+            <button onClick={()=>setShowFormatInfo(false)}
+              style={{width:"100%",padding:11,borderRadius:10,border:"none",background:"#1F4E79",color:"white",fontSize:13,fontWeight:700}}>
+              Oké
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Category filter */}
+      <div style={{display:"flex",gap:6,overflowX:"auto",paddingBottom:6,marginBottom:8}}>
+        {allCats.map(c => (
+          <button key={c} onClick={()=>setFilterCat(c)}
+            style={{padding:"4px 12px",borderRadius:16,border:"none",fontSize:11,fontWeight:600,whiteSpace:"nowrap",
+              background:filterCat===c?"#1F4E79":"white",color:filterCat===c?"white":"#5A6A7A",
+              boxShadow:"0 1px 3px rgba(0,0,0,0.08)"}}>
+            {c}
+          </button>
+        ))}
+      </div>
+
+      {/* Sort */}
+      <div style={{display:"flex",gap:6,overflowX:"auto",paddingBottom:6,marginBottom:10,alignItems:"center"}}>
+        <span style={{fontSize:10,fontWeight:700,color:"#8A9BB0",letterSpacing:0.6,marginRight:2}}>SORTEER</span>
+        {SORT_OPTIONS.map(s => (
+          <button key={s.id} onClick={()=>setSortBy(s.id)}
+            style={{padding:"4px 10px",borderRadius:14,border:"none",fontSize:11,fontWeight:600,whiteSpace:"nowrap",
+              background:sortBy===s.id?"#1F4E79":"white",color:sortBy===s.id?"white":"#5A6A7A",
+              boxShadow:"0 1px 3px rgba(0,0,0,0.08)"}}>
+            {s.label}
+          </button>
+        ))}
+      </div>
+
+      <div style={{fontSize:11,color:"#9AA5B4",marginBottom:8,fontWeight:600}}>{filtered.length} transacties</div>
+
+      {filtered.map(t => (
+        <TransRow key={t.id} tx={t} catColor={catColor} catIcon={catIcon} allCats={allCats.slice(1)} onChange={(id,c)=>requestChangeCat(t,c)} />
+      ))}
+      {filtered.length === 0 && <div style={{textAlign:"center",color:"#9AA5B4",marginTop:40,fontSize:14}}>Geen transacties gevonden</div>}
+
+      {pendingChange && (
+        <ConfirmDialog
+          title="Categorie wijzigen?"
+          body={<div style={{fontSize:13,color:"#2C3E50",lineHeight:1.5}}>
+            <div style={{marginBottom:8,fontWeight:600}}>{pendingChange.tx.naam}</div>
+            <div>Van <b>{pendingChange.tx.categorie}</b> naar <b>{pendingChange.newCat}</b>?</div>
+          </div>}
+          confirmLabel="Wijzigen"
+          onCancel={()=>setPendingChange(null)}
+          onConfirm={confirmChangeCat}
+        />
+      )}
+    </div>
+  );
+}
+
+// ─── CONFIRM DIALOG ──────────────────────────────────────────────────────────
+function ConfirmDialog({ title, body, confirmLabel="Bevestigen", cancelLabel="Annuleren", onCancel, onConfirm, confirmColor="#1F4E79", extra=null }) {
+  return (
+    <div style={{position:"fixed",inset:0,background:"rgba(0,0,0,0.5)",zIndex:300,display:"flex",alignItems:"center",justifyContent:"center",padding:20}}>
+      <div style={{background:"white",borderRadius:16,maxWidth:360,width:"100%",padding:"18px 20px",boxShadow:"0 10px 30px rgba(0,0,0,0.3)"}}>
+        <div style={{fontSize:16,fontWeight:800,color:"#1F4E79",marginBottom:10}}>{title}</div>
+        <div style={{marginBottom:14}}>{body}</div>
+        {extra}
+        <div style={{display:"flex",gap:10,marginTop:4}}>
+          <button onClick={onCancel} style={{flex:1,padding:11,borderRadius:10,border:"1px solid #E0E6ED",background:"white",color:"#5A6A7A",fontSize:13,fontWeight:600}}>{cancelLabel}</button>
+          <button onClick={onConfirm} style={{flex:1,padding:11,borderRadius:10,border:"none",background:confirmColor,color:"white",fontSize:13,fontWeight:700}}>{confirmLabel}</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function fmtTxDate(ymd){
+  // "31 mrt" (zelfde jaar) of "31 mrt 2025" (ander jaar)
+  const parts = ymd.split("-");
+  const maand = { "01":"jan","02":"feb","03":"mrt","04":"apr","05":"mei","06":"jun","07":"jul","08":"aug","09":"sep","10":"okt","11":"nov","12":"dec"}[parts[1]]||parts[1];
+  const huidigJaar = new Date().getFullYear().toString();
+  return parts[0] === huidigJaar ? `${parseInt(parts[2],10)} ${maand}` : `${parseInt(parts[2],10)} ${maand} ${parts[0]}`;
+}
+
+function TransRow({ tx, catColor, catIcon, allCats, onChange }) {
+  const [open, setOpen] = useState(false);
+  const isIncome = tx.afBij === "Bij";
+  const isNeg = tx.bedrag < 0;
+
+  return (
+    <div style={{background:"white",borderRadius:12,marginBottom:8,boxShadow:"0 1px 4px rgba(0,0,0,0.05)",overflow:"hidden"}}>
+      <div style={{padding:"11px 14px",display:"flex",justifyContent:"space-between",alignItems:"center",cursor:"pointer"}} onClick={()=>setOpen(o=>!o)}>
+        <div style={{display:"flex",gap:10,alignItems:"center",overflow:"hidden"}}>
+          <div style={{minWidth:36,width:36,height:36,borderRadius:10,background:catColor(tx.categorie),display:"flex",alignItems:"center",justifyContent:"center",fontSize:17}}>
+            {catIcon(tx.categorie)}
+          </div>
+          <div style={{overflow:"hidden"}}>
+            <div style={{fontSize:13,fontWeight:600,color:"#2C3E50",whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis",maxWidth:200}}>{tx.naam}</div>
+            <div style={{fontSize:11,color:"#9AA5B4"}}>{fmtTxDate(tx.datum)}  ·  {tx.categorie}</div>
+          </div>
+        </div>
+        <div style={{fontSize:14,fontWeight:700,color:isIncome?"#27AE60":isNeg?"#27AE60":"#E74C3C",whiteSpace:"nowrap",marginLeft:8}}>
+          {isIncome?"+":isNeg?"-":"−"}€{fmt(Math.abs(tx.bedrag))}
+        </div>
+      </div>
+      {open && (
+        <div style={{padding:"0 14px 12px",borderTop:"1px solid #F5F7FA"}}>
+          <div style={{fontSize:11,color:"#9AA5B4",marginBottom:6}}>Categorie wijzigen:</div>
+          <div style={{display:"flex",flexWrap:"wrap",gap:5}}>
+            {allCats.map(c => (
+              <button key={c} onClick={()=>{onChange(tx.id,c);setOpen(false)}}
+                style={{padding:"4px 10px",borderRadius:12,border:"none",fontSize:11,fontWeight:600,
+                  background:tx.categorie===c?"#1F4E79":"#F0F4F8",color:tx.categorie===c?"white":"#5A6A7A"}}>
+                {c}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ─── ANALYSES ────────────────────────────────────────────────────────────────
+function Analyses({ transactions, settings, months }) {
+  const { income, categories } = settings;
+  const today = new Date();
+  const currentYM = `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,"0")}`;
+  const daysInMonth = new Date(today.getFullYear(), today.getMonth()+1, 0).getDate();
+  const dayOfMonth = today.getDate();
+  const pctElapsed = dayOfMonth / daysInMonth;
+
+  // Laatste 12 maanden (exclusief huidige)
+  const last12 = months.filter(m => m !== currentYM).slice(0, 12);
+
+  return (
+    <div style={{padding:14}}>
+      <PrognoseBlock
+        transactions={transactions} categories={categories} income={income}
+        currentYM={currentYM} pctElapsed={pctElapsed} dayOfMonth={dayOfMonth} daysInMonth={daysInMonth}
+        referenceMonths={last12}
+      />
+      <ConsistencyBlock
+        transactions={transactions} categories={categories} income={income}
+        months={last12}
+      />
+      <RecurringBlock
+        transactions={transactions} categories={categories}
+        months={months}
+      />
+    </div>
+  );
+}
+
+// ─── BLOK 1: EINDE-MAAND PROGNOSE ───────────────────────────────────────────
+function PrognoseBlock({ transactions, categories, income, currentYM, pctElapsed, dayOfMonth, daysInMonth, referenceMonths }){
+  // Spent tot nu toe in huidige maand
+  const spentSoFar = transactions
+    .filter(t => t.afBij==="Af" && !SKIP_CATS.has(t.categorie) && t.datum.slice(0,7)===currentYM)
+    .reduce((s,t)=>s+t.bedrag,0);
+
+  // Prognose: lineaire extrapolatie op basis van dagen verstreken
+  const projected = pctElapsed > 0.01 ? spentSoFar / pctElapsed : spentSoFar;
+
+  const delta = projected - income;
+  const onTrack = projected <= income;
+
+  // Per categorie: hoeveel uitgegeven, prognose, budget
+  const catRows = categories.map(cat => {
+    const spent = getCatTotal(transactions, cat.name, currentYM);
+    const projCat = pctElapsed > 0.01 ? spent / pctElapsed : spent;
+    const budget = income * cat.pct;
+    const ruimte = budget - spent;
+    const overshoot = !cat.skipRed && projCat > budget;
+    return { ...cat, spent, projCat, budget, ruimte, overshoot };
+  });
+
+  const overshooters = catRows.filter(c => c.overshoot).sort((a,b) => (b.projCat-b.budget)-(a.projCat-a.budget));
+  const ruimOver = catRows.filter(c => !c.overshoot && c.budget>0 && c.ruimte > 10).sort((a,b) => b.ruimte - a.ruimte);
+
+  return (
+    <div style={{background:"white",borderRadius:16,padding:16,marginBottom:14,boxShadow:"0 1px 6px rgba(0,0,0,0.06)"}}>
+      <div style={{fontSize:11,fontWeight:700,color:"#8A9BB0",letterSpacing:0.8,marginBottom:10}}>EINDE-MAAND PROGNOSE</div>
+      <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-end",marginBottom:6}}>
+        <div>
+          <div style={{fontSize:11,color:"#9AA5B4"}}>Prognose {monthLabel(currentYM)} (dag {dayOfMonth}/{daysInMonth})</div>
+          <div style={{fontSize:26,fontWeight:800,color:onTrack?"#27AE60":"#E74C3C",lineHeight:1.1,marginTop:3}}>€{fmt(projected)}</div>
+          <div style={{fontSize:12,color:"#9AA5B4",marginTop:2}}>
+            Tot nu: €{fmt(spentSoFar)} · Budget €{fmt(income)}
+          </div>
+        </div>
+        <div style={{textAlign:"right"}}>
+          <div style={{fontSize:14,fontWeight:700,color:onTrack?"#27AE60":"#E74C3C"}}>
+            {onTrack?"−":"+"}€{fmt(Math.abs(delta))}
+          </div>
+          <div style={{fontSize:10,color:"#9AA5B4"}}>{onTrack?"onder":"boven"} budget</div>
+        </div>
+      </div>
+      {/* Voortgangsbalk: werkelijk vs budget, met dag-indicator */}
+      <div style={{position:"relative",background:"#F0F4F8",borderRadius:6,height:10,overflow:"hidden",marginTop:10}}>
+        <div style={{position:"absolute",top:0,left:0,height:"100%",width:`${Math.min(spentSoFar/income*100,100)}%`,background:onTrack?"#1F4E79":"#E74C3C",borderRadius:6}} />
+        <div style={{position:"absolute",top:0,left:`${pctElapsed*100}%`,height:"100%",width:2,background:"rgba(0,0,0,0.35)"}} title="Dag verstreken" />
+      </div>
+      <div style={{display:"flex",justifyContent:"space-between",marginTop:4,fontSize:10,color:"#9AA5B4"}}>
+        <span>{Math.round(spentSoFar/income*100)}% uitgegeven</span>
+        <span>{Math.round(pctElapsed*100)}% maand voorbij</span>
+      </div>
+
+      {overshooters.length > 0 && (
+        <div style={{marginTop:14}}>
+          <div style={{fontSize:10,fontWeight:700,color:"#C0392B",letterSpacing:0.5,marginBottom:6}}>KOERS OP OVERSCHRIJDING</div>
+          {overshooters.slice(0,5).map((c,i) => (
+            <div key={i} style={{display:"flex",alignItems:"center",gap:8,padding:"5px 0",fontSize:12}}>
+              <span style={{fontSize:14}}>{c.icon}</span>
+              <div style={{flex:1,color:"#2C3E50"}}>{c.name}</div>
+              <div style={{color:"#C0392B",fontWeight:700}}>€{fmt(c.projCat)}</div>
+              <div style={{color:"#9AA5B4",fontSize:10,minWidth:52,textAlign:"right"}}>budget €{fmt(c.budget)}</div>
+            </div>
+          ))}
+        </div>
+      )}
+      {ruimOver.length > 0 && overshooters.length === 0 && (
+        <div style={{marginTop:14}}>
+          <div style={{fontSize:10,fontWeight:700,color:"#27AE60",letterSpacing:0.5,marginBottom:6}}>MEESTE RUIMTE OVER</div>
+          {ruimOver.slice(0,3).map((c,i) => (
+            <div key={i} style={{display:"flex",alignItems:"center",gap:8,padding:"5px 0",fontSize:12}}>
+              <span style={{fontSize:14}}>{c.icon}</span>
+              <div style={{flex:1,color:"#2C3E50"}}>{c.name}</div>
+              <div style={{color:"#27AE60",fontWeight:700}}>€{fmt(c.ruimte)}</div>
+              <div style={{color:"#9AA5B4",fontSize:10,minWidth:52,textAlign:"right"}}>over</div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ─── BLOK 2: BUDGET-CONSISTENTIE (12 mnd grid) ──────────────────────────────
+function ConsistencyBlock({ transactions, categories, income, months }){
+  // Voor elke cat: per maand was je binnen budget?
+  const rows = categories.map(cat => {
+    const budget = income * cat.pct;
+    const monthStates = months.map(m => {
+      const v = getCatTotal(transactions, cat.name, m);
+      if (v === 0 && budget > 0) return "nodata";
+      const ok = cat.skipRed ? true : v <= budget;
+      return ok ? "ok" : "over";
+    });
+    const binnenAantal = monthStates.filter(s => s === "ok").length;
+    const totaalAantal = monthStates.filter(s => s !== "nodata").length;
+    return { ...cat, budget, monthStates, binnenAantal, totaalAantal };
+  }).filter(c => c.totaalAantal > 0);
+
+  // Sorteer: slechtste eerst (laagste ratio)
+  rows.sort((a,b) => (a.binnenAantal/a.totaalAantal) - (b.binnenAantal/b.totaalAantal));
+
+  return (
+    <div style={{background:"white",borderRadius:16,padding:16,marginBottom:14,boxShadow:"0 1px 6px rgba(0,0,0,0.06)"}}>
+      <div style={{fontSize:11,fontWeight:700,color:"#8A9BB0",letterSpacing:0.8,marginBottom:4}}>BUDGET-CONSISTENTIE</div>
+      <div style={{fontSize:11,color:"#B0BEC5",marginBottom:12}}>Laatste {months.length} maanden · elk blokje = 1 maand (oud → recent)</div>
+      {rows.length === 0 && <div style={{color:"#9AA5B4",fontSize:13}}>Niet genoeg data</div>}
+      {rows.map((c,i) => (
+        <div key={i} style={{marginBottom:10}}>
+          <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:3}}>
+            <span style={{fontSize:14}}>{c.icon}</span>
+            <div style={{flex:1,fontSize:12,fontWeight:600,color:"#2C3E50"}}>{c.name}</div>
+            <div style={{fontSize:11,fontWeight:700,color:c.binnenAantal===c.totaalAantal?"#27AE60":c.binnenAantal===0?"#C0392B":"#2C3E50"}}>
+              {c.binnenAantal}/{c.totaalAantal}
+            </div>
+          </div>
+          <div style={{display:"flex",gap:2}}>
+            {[...c.monthStates].reverse().map((s,j) => (
+              <div key={j} title={monthLabel(months[c.monthStates.length-1-j])}
+                style={{flex:1,height:16,borderRadius:2,
+                  background: s==="ok"?"#27AE60": s==="over"?"#E74C3C":"#E8ECF0"}} />
+            ))}
+          </div>
+        </div>
+      ))}
+      <div style={{marginTop:10,display:"flex",gap:12,fontSize:10,color:"#9AA5B4"}}>
+        <span><span style={{display:"inline-block",width:10,height:10,background:"#27AE60",borderRadius:2,marginRight:4,verticalAlign:"middle"}} />binnen budget</span>
+        <span><span style={{display:"inline-block",width:10,height:10,background:"#E74C3C",borderRadius:2,marginRight:4,verticalAlign:"middle"}} />over budget</span>
+        <span><span style={{display:"inline-block",width:10,height:10,background:"#E8ECF0",borderRadius:2,marginRight:4,verticalAlign:"middle"}} />geen data</span>
+      </div>
+    </div>
+  );
+}
+
+// ─── BLOK 3: TERUGKERENDE VASTE LASTEN ──────────────────────────────────────
+function RecurringBlock({ transactions, categories, months }){
+  // Gebruik laatste 6 maanden voor detectie
+  const windowMonths = months.slice(0, 6);
+  if (windowMonths.length < 3) {
+    return (
+      <div style={{background:"white",borderRadius:16,padding:16,boxShadow:"0 1px 6px rgba(0,0,0,0.06)"}}>
+        <div style={{fontSize:11,fontWeight:700,color:"#8A9BB0",letterSpacing:0.8,marginBottom:10}}>TERUGKERENDE VASTE LASTEN</div>
+        <div style={{color:"#9AA5B4",fontSize:13}}>Minimaal 3 maanden data nodig.</div>
+      </div>
+    );
+  }
+
+  // Normalize name: lowercase, strip digits/locaties
+  function normName(n){
+    return String(n).toLowerCase()
+      .replace(/\d+/g,"")
+      .replace(/\b(nld|groningen|amsterdam|utrecht|rotterdam|den haag|via|tikkie|betaalverzoek|rabo)\b/g,"")
+      .replace(/[^\w\s]/g," ")
+      .replace(/\s+/g," ").trim();
+  }
+
+  // Groepeer Af-transacties op genormaliseerde naam
+  const buckets = new Map();
+  transactions.forEach(t => {
+    if (t.afBij !== "Af" || SKIP_CATS.has(t.categorie)) return;
+    const ym = t.datum.slice(0,7);
+    if (!windowMonths.includes(ym)) return;
+    const key = normName(t.naam);
+    if (!key || key.length < 3) return;
+    if (!buckets.has(key)) buckets.set(key, []);
+    buckets.get(key).push({ ...t, _ym: ym });
+  });
+
+  // Filter: in ≥3 verschillende maanden gezien, en bedrag consistent
+  const recurring = [];
+  buckets.forEach((txs, key) => {
+    const uniqueMonths = new Set(txs.map(t => t._ym));
+    if (uniqueMonths.size < 3) return;
+    const amounts = txs.map(t => t.bedrag);
+    const avg = amounts.reduce((s,a)=>s+a,0) / amounts.length;
+    if (avg < 3) return; // te klein om als 'vaste last' te kwalificeren
+    // Consistent bedrag: std/gem < 0.3, of bedragen allemaal dezelfde honderd
+    const variance = amounts.reduce((s,a)=>s+(a-avg)**2,0) / amounts.length;
+    const std = Math.sqrt(variance);
+    const cv = avg > 0 ? std/avg : 1;
+    if (cv > 0.4) return;
+    // Meest gebruikte naam + categorie
+    const nameCount = {};
+    const catCount = {};
+    txs.forEach(t => {
+      nameCount[t.naam] = (nameCount[t.naam]||0)+1;
+      catCount[t.categorie] = (catCount[t.categorie]||0)+1;
+    });
+    const displayName = Object.entries(nameCount).sort((a,b)=>b[1]-a[1])[0][0];
+    const displayCat = Object.entries(catCount).sort((a,b)=>b[1]-a[1])[0][0];
+    recurring.push({
+      key, displayName, displayCat,
+      monthsSeen: uniqueMonths.size,
+      count: txs.length,
+      avgAmount: avg
+    });
+  });
+  recurring.sort((a,b) => b.avgAmount - a.avgAmount);
+
+  const totaalPerMaand = recurring.reduce((s,r) => s + r.avgAmount * (r.monthsSeen/windowMonths.length), 0);
+
+  const catDef = (name) => categories.find(c => c.name === name);
+
+  return (
+    <div style={{background:"white",borderRadius:16,padding:16,marginBottom:14,boxShadow:"0 1px 6px rgba(0,0,0,0.06)"}}>
+      <div style={{display:"flex",justifyContent:"space-between",alignItems:"baseline",marginBottom:4}}>
+        <div style={{fontSize:11,fontWeight:700,color:"#8A9BB0",letterSpacing:0.8}}>TERUGKERENDE VASTE LASTEN</div>
+        <div style={{fontSize:11,color:"#9AA5B4"}}>~ €{fmt(totaalPerMaand)}/mnd</div>
+      </div>
+      <div style={{fontSize:11,color:"#B0BEC5",marginBottom:12}}>Laatste {windowMonths.length} maanden · ≥3× gezien met stabiel bedrag</div>
+      {recurring.length === 0 && <div style={{color:"#9AA5B4",fontSize:13}}>Geen duidelijke vaste lasten gedetecteerd.</div>}
+      {recurring.slice(0,15).map((r,i) => {
+        const c = catDef(r.displayCat);
+        return (
+          <div key={i} style={{display:"flex",alignItems:"center",gap:10,padding:"8px 0",borderBottom:i<Math.min(recurring.length,15)-1?"1px solid #F5F7FA":"none"}}>
+            <div style={{minWidth:32,width:32,height:32,borderRadius:8,background:c?.color??"#E8ECF0",display:"flex",alignItems:"center",justifyContent:"center",fontSize:15}}>
+              {c?.icon??"🔁"}
+            </div>
+            <div style={{flex:1,overflow:"hidden"}}>
+              <div style={{fontSize:12,fontWeight:600,color:"#2C3E50",whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}}>{r.displayName}</div>
+              <div style={{fontSize:10,color:"#9AA5B4"}}>{r.displayCat} · {r.monthsSeen}/{windowMonths.length} mnd</div>
+            </div>
+            <div style={{fontSize:13,fontWeight:700,color:"#2C3E50"}}>€{fmt(r.avgAmount)}</div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+// ─── INSTELLINGEN ────────────────────────────────────────────────────────────
+const PRESET_COLORS = ["#AED6F1","#A9DFBF","#F9E79F","#F1948A","#D7BDE2","#85C1E9","#FAD7A0","#F8C471","#D5DBDB","#AEB6BF","#A3E4D7","#C5CAE9","#F5B7B1","#BB8FCE","#76D7C4","#F7DC6F"];
+
+function Instellingen({ settings, setSettings, transactions, setTransactions, showToast, dashSort, setDashSort, session }) {
+  const [income, setIncome] = useState(settings.income);
+  const [cats, setCats] = useState(settings.categories);
+  const [showAdd, setShowAdd] = useState(false);
+  const [pendingDelete, setPendingDelete] = useState(null);
+  const [dragIdx, setDragIdx] = useState(null);
+  const [dragOverIdx, setDragOverIdx] = useState(null);
+  const [orderChanged, setOrderChanged] = useState(false);
+  const [showSavePopup, setShowSavePopup] = useState(false);
+
+  async function handleLogout(){
+    if (sb) await sb.auth.signOut();
+  }
+
+  // Sync cats wanneer settings van buiten wijzigt (ook reset van orderChanged)
+  useEffect(()=>{ setCats(settings.categories); setOrderChanged(false); }, [settings.categories]);
+  useEffect(()=>{ setIncome(settings.income); }, [settings.income]);
+
+  // Dirty-state detectie
+  const incomeDirty = (parseFloat(income)||0) !== (parseFloat(settings.income)||0);
+  const pctDirty = cats.length === settings.categories.length &&
+    cats.some((c, i) => Math.abs(c.pct - (settings.categories[i]?.pct ?? 0)) > 1e-6);
+  const dirty = incomeDirty || pctDirty || orderChanged;
+
+  function reorderCats(from, to) {
+    if (from === to || from < 0 || to < 0 || from >= cats.length || to >= cats.length) return;
+    const next = cats.slice();
+    const [moved] = next.splice(from, 1);
+    next.splice(to, 0, moved);
+    setCats(next);
+    setOrderChanged(true);
+  }
+
+  function handleSaveClick() {
+    if (orderChanged) {
+      setShowSavePopup(true);
+    } else {
+      doSave();
+    }
+  }
+  function doSave(applyToDashboard) {
+    setSettings({ income: parseFloat(income)||0, categories: cats });
+    if (applyToDashboard === true) setDashSort("fixed");
+    setOrderChanged(false);
+    setShowSavePopup(false);
+    if (showToast) showToast("Instellingen opgeslagen");
+  }
+  function discard() {
+    setIncome(settings.income);
+    setCats(settings.categories);
+    setOrderChanged(false);
+  }
+
+  function updateCatPct(i, val) {
+    const newCats = cats.map((c,j) => j===i ? {...c, pct: parseFloat(val)/100 || c.pct} : c);
+    setCats(newCats);
+  }
+
+  function addCategory(newCat) {
+    const updated = [...cats, newCat];
+    setCats(updated);
+    setSettings({ income: parseFloat(income)||0, categories: updated });
+    setShowAdd(false);
+    if (showToast) showToast(`Categorie "${newCat.name}" toegevoegd`);
+  }
+
+  function requestDelete(index) {
+    const cat = cats[index];
+    const txCount = transactions.filter(t => t.categorie === cat.name).length;
+    setPendingDelete({ index, cat, txCount, action: txCount>0?"move":"simple", target: "Onbekend" });
+  }
+
+  function confirmDelete() {
+    if (!pendingDelete) return;
+    const { cat, action, target } = pendingDelete;
+    const remainingCats = cats.filter(c => c.name !== cat.name);
+
+    if (action === "delete") {
+      // Verwijder ook transacties met deze categorie
+      setTransactions(prev => prev.filter(t => t.categorie !== cat.name));
+    } else if (action === "move" && pendingDelete.txCount > 0) {
+      // Verplaats transacties naar target categorie
+      setTransactions(prev => prev.map(t => t.categorie === cat.name ? {...t, categorie: target} : t));
+    }
+    setCats(remainingCats);
+    setSettings({ income: parseFloat(income)||0, categories: remainingCats });
+    setPendingDelete(null);
+    if (showToast) showToast(`Categorie "${cat.name}" verwijderd`);
+  }
+
+  const totalPct = cats.reduce((s,c)=>s+c.pct,0);
+  const catTargets = [...cats.filter(c=>pendingDelete && c.name!==pendingDelete.cat.name).map(c=>c.name), "Onbekend"];
+
+  return (
+    <div style={{padding:14,position:"relative"}}>
+      {dirty && (
+        <div style={{position:"sticky",top:0,zIndex:50,background:"rgba(244,246,249,0.95)",backdropFilter:"blur(6px)",
+          display:"flex",justifyContent:"flex-end",alignItems:"center",gap:8,padding:"6px 0 10px",marginBottom:4}}>
+          <button onClick={discard}
+            style={{padding:"8px 14px",borderRadius:10,border:"1px solid #E0E6ED",background:"white",color:"#5A6A7A",fontSize:12,fontWeight:600,cursor:"pointer"}}>
+            Annuleren
+          </button>
+          <button onClick={handleSaveClick}
+            style={{padding:"8px 16px",borderRadius:10,border:"none",background:"#1F4E79",color:"white",fontSize:12,fontWeight:700,cursor:"pointer",boxShadow:"0 2px 8px rgba(31,78,121,0.25)"}}>
+            Opslaan
+          </button>
+        </div>
+      )}
+      {/* Account */}
+      {session && (
+        <div style={{background:"white",borderRadius:16,padding:16,marginBottom:12,boxShadow:"0 1px 6px rgba(0,0,0,0.06)",display:"flex",alignItems:"center",justifyContent:"space-between",gap:10}}>
+          <div style={{overflow:"hidden"}}>
+            <div style={{fontSize:11,fontWeight:700,color:"#8A9BB0",letterSpacing:0.8,marginBottom:2}}>ACCOUNT</div>
+            <div style={{fontSize:13,color:"#2C3E50",fontWeight:600,whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}}>{session.user.email}</div>
+          </div>
+          <button onClick={handleLogout}
+            style={{padding:"8px 14px",borderRadius:10,border:"1px solid #E0E6ED",background:"white",color:"#C0392B",fontSize:12,fontWeight:700,cursor:"pointer",whiteSpace:"nowrap"}}>
+            Uitloggen
+          </button>
+        </div>
+      )}
+      {/* Income */}
+      <div style={{background:"white",borderRadius:16,padding:16,marginBottom:12,boxShadow:"0 1px 6px rgba(0,0,0,0.06)"}}>
+        <div style={{fontSize:11,fontWeight:700,color:"#8A9BB0",marginBottom:12,letterSpacing:0.8}}>MAANDINKOMEN</div>
+        <div style={{display:"flex",alignItems:"center",gap:8,borderBottom:"2px solid #E8ECF0",paddingBottom:8}}>
+          <span style={{fontSize:20,fontWeight:700,color:"#9AA5B4"}}>€</span>
+          <input type="number" value={income} onChange={e=>setIncome(e.target.value)}
+            style={{fontSize:22,fontWeight:700,color:"#1F4E79",border:"none",width:"100%",background:"transparent"}} />
+        </div>
+        <div style={{fontSize:11,color:"#9AA5B4",marginTop:8}}>Alle percentages berekenen op dit bedrag</div>
+      </div>
+
+      {/* Categories */}
+      <div style={{background:"white",borderRadius:16,padding:16,marginBottom:12,boxShadow:"0 1px 6px rgba(0,0,0,0.06)"}}>
+        <div style={{display:"flex",justifyContent:"space-between",marginBottom:12,alignItems:"center"}}>
+          <div style={{fontSize:11,fontWeight:700,color:"#8A9BB0",letterSpacing:0.8}}>BUDGETTEN</div>
+          <div style={{fontSize:11,color:Math.abs(totalPct-1)>0.005?"#E74C3C":"#27AE60",fontWeight:600}}>Totaal: {Math.round(totalPct*100)}%</div>
+        </div>
+        {cats.map((cat,i) => {
+          const isDragging = dragIdx === i;
+          const isTarget = dragOverIdx === i && dragIdx !== null && dragIdx !== i;
+          return (
+            <div key={cat.name}
+              onDragOver={e => { if (dragIdx !== null) { e.preventDefault(); setDragOverIdx(i); } }}
+              onDragLeave={() => { if (dragOverIdx === i) setDragOverIdx(null); }}
+              onDrop={e => { e.preventDefault(); if (dragIdx !== null) reorderCats(dragIdx, i); setDragIdx(null); setDragOverIdx(null); }}
+              style={{
+                display:"flex",alignItems:"center",padding:"9px 0",
+                borderBottom:i<cats.length-1?"1px solid #F5F7FA":"none",
+                gap:10,
+                opacity: isDragging ? 0.4 : 1,
+                background: isTarget ? "#F0F4F8" : "transparent",
+                borderTop: isTarget && dragIdx > i ? "2px solid #1F4E79" : undefined,
+                borderBottom: isTarget && dragIdx < i ? "2px solid #1F4E79" : (i<cats.length-1?"1px solid #F5F7FA":"none"),
+                transition:"background 0.1s"
+              }}>
+              <span style={{fontSize:18,minWidth:24}}>{cat.icon}</span>
+              <div style={{flex:1,fontSize:13,color:"#2C3E50",fontWeight:500,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{cat.name}</div>
+              <div style={{display:"flex",alignItems:"center",gap:4}}>
+                <input type="number" value={Math.round(cat.pct*1000)/10} onChange={e=>updateCatPct(i,e.target.value)}
+                  step="0.1" min="0" max="100"
+                  style={{width:52,textAlign:"right",fontSize:13,fontWeight:700,color:"#1F4E79",border:"1px solid #E0E6ED",borderRadius:6,padding:"3px 5px"}} />
+                <span style={{fontSize:12,color:"#9AA5B4"}}>%</span>
+              </div>
+              <div style={{width:50,fontSize:12,color:"#9AA5B4",textAlign:"right"}}>€{fmt((parseFloat(income)||0)*cat.pct)}</div>
+              <button onClick={()=>requestDelete(i)} title="Categorie verwijderen"
+                style={{border:"none",background:"transparent",cursor:"pointer",fontSize:15,color:"#C0392B",padding:"2px 4px"}}>🗑</button>
+              <div
+                draggable
+                onDragStart={e => { setDragIdx(i); e.dataTransfer.effectAllowed = "move"; }}
+                onDragEnd={() => { setDragIdx(null); setDragOverIdx(null); }}
+                title="Sleep om volgorde te wijzigen"
+                style={{cursor:"grab",color:"#B0BEC5",fontSize:16,padding:"2px 4px",userSelect:"none",lineHeight:1}}>
+                ☰
+              </div>
+            </div>
+          );
+        })}
+        <button onClick={()=>setShowAdd(true)}
+          style={{marginTop:12,width:"100%",padding:10,borderRadius:10,border:"1px dashed #B0BEC5",background:"#F8FAFB",color:"#1F4E79",fontSize:13,fontWeight:700,cursor:"pointer"}}>
+          + Categorie toevoegen
+        </button>
+      </div>
+
+      {showAdd && <AddCategoryModal existing={cats} onCancel={()=>setShowAdd(false)} onAdd={addCategory} />}
+
+      {showSavePopup && (
+        <div style={{position:"fixed",inset:0,background:"rgba(0,0,0,0.5)",zIndex:300,display:"flex",alignItems:"center",justifyContent:"center",padding:20}}>
+          <div style={{background:"white",borderRadius:16,maxWidth:360,width:"100%",padding:"18px 20px",boxShadow:"0 10px 30px rgba(0,0,0,0.3)"}}>
+            <div style={{fontSize:16,fontWeight:800,color:"#1F4E79",marginBottom:10}}>Dashboard-weergave aanpassen?</div>
+            <div style={{fontSize:13,color:"#2C3E50",lineHeight:1.5,marginBottom:14}}>
+              Je hebt de volgorde van categorieën gewijzigd. Wil je dat het Dashboard deze nieuwe volgorde ook toont?
+              {dashSort !== "fixed" && (
+                <div style={{marginTop:8,padding:"8px 10px",background:"#FEF3CD",borderRadius:8,fontSize:12,color:"#856404"}}>
+                  Dashboard staat nu op <b>{DASH_SORT_OPTIONS.find(o=>o.id===dashSort)?.label}</b>. Je nieuwe volgorde is pas zichtbaar bij 'Vast'.
+                </div>
+              )}
+            </div>
+            <div style={{display:"flex",flexDirection:"column",gap:8}}>
+              <button onClick={()=>doSave(true)}
+                style={{padding:12,borderRadius:10,border:"none",background:"#1F4E79",color:"white",fontSize:13,fontWeight:700,cursor:"pointer"}}>
+                Ja, Dashboard op 'Vast' + opslaan
+              </button>
+              <button onClick={()=>doSave(false)}
+                style={{padding:12,borderRadius:10,border:"1px solid #E0E6ED",background:"white",color:"#2C3E50",fontSize:13,fontWeight:600,cursor:"pointer"}}>
+                Nee, alleen opslaan
+              </button>
+              <button onClick={()=>setShowSavePopup(false)}
+                style={{padding:10,borderRadius:10,border:"none",background:"transparent",color:"#9AA5B4",fontSize:12,fontWeight:600,cursor:"pointer"}}>
+                Annuleren
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {pendingDelete && (
+        <ConfirmDialog
+          title={`Categorie "${pendingDelete.cat.name}" verwijderen?`}
+          confirmColor="#C0392B"
+          confirmLabel={
+            pendingDelete.txCount === 0 ? "Verwijderen" :
+            pendingDelete.action === "delete" ? `Verwijder cat + ${pendingDelete.txCount} tx` :
+            `Verplaats naar ${pendingDelete.target}`
+          }
+          onCancel={()=>setPendingDelete(null)}
+          onConfirm={confirmDelete}
+          body={
+            <div style={{fontSize:13,color:"#2C3E50",lineHeight:1.5}}>
+              {pendingDelete.txCount === 0
+                ? <>Geen transacties gekoppeld. Weet je het zeker?</>
+                : <><b>{pendingDelete.txCount}</b> transacties zijn aan deze categorie gekoppeld. Wat wil je hiermee doen?</>}
+            </div>
+          }
+          extra={pendingDelete.txCount > 0 ? (
+            <div style={{background:"#F8FAFB",borderRadius:10,padding:10,marginBottom:12}}>
+              <div style={{display:"flex",gap:8,marginBottom:8}}>
+                <label style={{flex:1,display:"flex",alignItems:"center",gap:6,fontSize:12,fontWeight:600,color:"#2C3E50",cursor:"pointer"}}>
+                  <input type="radio" checked={pendingDelete.action==="move"} onChange={()=>setPendingDelete({...pendingDelete,action:"move"})} />
+                  Verplaatsen
+                </label>
+                <label style={{flex:1,display:"flex",alignItems:"center",gap:6,fontSize:12,fontWeight:600,color:"#C0392B",cursor:"pointer"}}>
+                  <input type="radio" checked={pendingDelete.action==="delete"} onChange={()=>setPendingDelete({...pendingDelete,action:"delete"})} />
+                  Transacties verwijderen
+                </label>
+              </div>
+              {pendingDelete.action==="move" && (
+                <select value={pendingDelete.target} onChange={e=>setPendingDelete({...pendingDelete,target:e.target.value})}
+                  style={{width:"100%",padding:"7px 8px",borderRadius:8,border:"1px solid #E0E6ED",fontSize:13,color:"#2C3E50",background:"white"}}>
+                  {catTargets.map(c=><option key={c} value={c}>{c}</option>)}
+                </select>
+              )}
+            </div>
+          ) : null}
+        />
+      )}
+    </div>
+  );
+}
+
+// ─── ADD CATEGORY MODAL ──────────────────────────────────────────────────────
+function AddCategoryModal({ existing, onCancel, onAdd }) {
+  const [name, setName] = useState("");
+  const [icon, setIcon] = useState("📦");
+  const [color, setColor] = useState(PRESET_COLORS[0]);
+  const [pctStr, setPctStr] = useState("5");
+  const [skipRed, setSkipRed] = useState(false);
+  const [err, setErr] = useState("");
+
+  function submit() {
+    const trimmed = name.trim();
+    if (!trimmed) return setErr("Naam is verplicht");
+    if (existing.some(c=>c.name.toLowerCase()===trimmed.toLowerCase())) return setErr("Naam bestaat al");
+    if (["Inkomen","Interne transfer","Onbekend"].includes(trimmed)) return setErr("Naam is gereserveerd");
+    const pct = (parseFloat(pctStr)||0)/100;
+    if (pct < 0) return setErr("Percentage mag niet negatief zijn");
+    onAdd({ name: trimmed, icon: icon || "📦", color, pct, skipRed });
+  }
+
+  return (
+    <div style={{position:"fixed",inset:0,background:"rgba(0,0,0,0.5)",zIndex:300,display:"flex",alignItems:"center",justifyContent:"center",padding:20}}>
+      <div style={{background:"white",borderRadius:16,maxWidth:380,width:"100%",padding:"18px 20px",boxShadow:"0 10px 30px rgba(0,0,0,0.3)",maxHeight:"90vh",overflowY:"auto"}}>
+        <div style={{fontSize:16,fontWeight:800,color:"#1F4E79",marginBottom:14}}>Nieuwe categorie</div>
+
+        <div style={{marginBottom:12}}>
+          <div style={{fontSize:11,fontWeight:700,color:"#8A9BB0",marginBottom:4,letterSpacing:0.6}}>NAAM</div>
+          <input value={name} onChange={e=>{setName(e.target.value);setErr("");}} placeholder="Bijv. Cadeaus"
+            style={{width:"100%",padding:"9px 11px",borderRadius:8,border:"1px solid #E0E6ED",fontSize:13}} />
+        </div>
+
+        <div style={{display:"flex",gap:10,marginBottom:12}}>
+          <div style={{flex:1}}>
+            <div style={{fontSize:11,fontWeight:700,color:"#8A9BB0",marginBottom:4,letterSpacing:0.6}}>ICOON (EMOJI)</div>
+            <input value={icon} onChange={e=>setIcon(e.target.value)} maxLength={2}
+              style={{width:"100%",padding:"9px 11px",borderRadius:8,border:"1px solid #E0E6ED",fontSize:18,textAlign:"center"}} />
+          </div>
+          <div style={{flex:1}}>
+            <div style={{fontSize:11,fontWeight:700,color:"#8A9BB0",marginBottom:4,letterSpacing:0.6}}>BUDGET %</div>
+            <input type="number" value={pctStr} onChange={e=>setPctStr(e.target.value)} step="0.1" min="0"
+              style={{width:"100%",padding:"9px 11px",borderRadius:8,border:"1px solid #E0E6ED",fontSize:13}} />
+          </div>
+        </div>
+
+        <div style={{marginBottom:12}}>
+          <div style={{fontSize:11,fontWeight:700,color:"#8A9BB0",marginBottom:6,letterSpacing:0.6}}>KLEUR</div>
+          <div style={{display:"flex",flexWrap:"wrap",gap:6}}>
+            {PRESET_COLORS.map(c => (
+              <button key={c} onClick={()=>setColor(c)}
+                style={{width:28,height:28,borderRadius:"50%",border:color===c?"3px solid #1F4E79":"1px solid #E0E6ED",background:c,cursor:"pointer"}} />
+            ))}
+          </div>
+        </div>
+
+        <label style={{display:"flex",alignItems:"center",gap:8,fontSize:12,color:"#2C3E50",marginBottom:14,cursor:"pointer"}}>
+          <input type="checkbox" checked={skipRed} onChange={e=>setSkipRed(e.target.checked)} />
+          <span>Geen rode waarschuwing bij overschrijding (voor sparen/investeren)</span>
+        </label>
+
+        {err && <div style={{fontSize:12,color:"#E74C3C",marginBottom:10,fontWeight:600}}>{err}</div>}
+
+        <div style={{display:"flex",gap:10}}>
+          <button onClick={onCancel} style={{flex:1,padding:11,borderRadius:10,border:"1px solid #E0E6ED",background:"white",color:"#5A6A7A",fontSize:13,fontWeight:600}}>Annuleren</button>
+          <button onClick={submit} style={{flex:1,padding:11,borderRadius:10,border:"none",background:"#1F4E79",color:"white",fontSize:13,fontWeight:700}}>Toevoegen</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ─── IMPORT MODAL ────────────────────────────────────────────────────────────
+function ImportModal({ state, setState, onConfirm, cats, existing }) {
+  const { bank: initialBank, rawText, fileName } = state;
+  const [bank, setBank] = useState(initialBank);
+  const [reviewed, setReviewed] = useState(state.pending || []);
+  const [duplicateIds, setDuplicateIds] = useState(new Set()); // ids die NIET meegenomen worden
+  const [bulkCat, setBulkCat] = useState(null); // {catName, txIds:Set}
+  const [expandedGroups, setExpandedGroups] = useState(new Set(["Onbekend"]));
+  const [showDupPrompt, setShowDupPrompt] = useState(false);
+
+  const allCatNames = [...cats.map(c=>c.name),"Inkomen","Interne transfer","Onbekend"];
+
+  // Re-parse wanneer bank handmatig gewijzigd wordt
+  function reparseWithBank(newBank){
+    setBank(newBank);
+    if (!rawText) return;
+    const { rows } = parseCSV(rawText, newBank);
+    setReviewed(rows);
+    setDuplicateIds(new Set());
+  }
+
+  // Detecteer duplicaten t.o.v. bestaande transacties
+  const existingKeys = useMemo(() => {
+    return new Set((existing||[]).map(t => `${t.datum}|${t.naam}|${t.bedrag.toFixed(2)}`));
+  }, [existing]);
+  const dupTxs = useMemo(() => {
+    return reviewed.filter(t => existingKeys.has(`${t.datum}|${t.naam}|${t.bedrag.toFixed(2)}`));
+  }, [reviewed, existingKeys]);
+
+  // Bij eerste load: als >10 dup, toon prompt
+  useEffect(() => {
+    if (dupTxs.length > 10 && !showDupPrompt && duplicateIds.size === 0){
+      setShowDupPrompt(true);
+    }
+  // eslint-disable-next-line
+  }, [dupTxs.length]);
+
+  function skipAllDups(){
+    setDuplicateIds(new Set(dupTxs.map(t => t.id)));
+    setShowDupPrompt(false);
+  }
+  function keepAllDups(){
+    setDuplicateIds(new Set());
+    setShowDupPrompt(false);
+  }
+  function toggleDup(txId){
+    setDuplicateIds(prev => {
+      const next = new Set(prev);
+      if (next.has(txId)) next.delete(txId); else next.add(txId);
+      return next;
+    });
+  }
+
+  function changeCat(id, cat) {
+    setReviewed(prev => prev.map(t => t.id===id ? {...t,categorie:cat} : t));
+  }
+
+  // Bevestig import: leer categorieën, filter duplicaten
+  function confirm() {
+    const toAdd = reviewed.filter(t => !duplicateIds.has(t.id));
+    toAdd.forEach(t => {
+      if (t.categorie && t.categorie !== "Onbekend") learnCat(t.naam, t.categorie);
+    });
+    onConfirm(toAdd);
+  }
+
+  // Groepeer per categorie: Onbekend bovenaan, daarna rest
+  const groups = useMemo(() => {
+    const map = {};
+    reviewed.forEach(t => {
+      const k = t.categorie || "Onbekend";
+      if (!map[k]) map[k] = [];
+      map[k].push(t);
+    });
+    const names = Object.keys(map);
+    names.sort((a,b) => {
+      if (a === "Onbekend") return -1;
+      if (b === "Onbekend") return 1;
+      return map[b].length - map[a].length;
+    });
+    return names.map(n => ({ name:n, txs:map[n] }));
+  }, [reviewed]);
+
+  function toggleGroup(name){
+    setExpandedGroups(prev => {
+      const next = new Set(prev);
+      if (next.has(name)) next.delete(name); else next.add(name);
+      return next;
+    });
+  }
+
+  // Bulk UI: open voor groep, vooraf alle txs in groep geselecteerd
+  function openBulk(groupName){
+    const ids = new Set(groups.find(g => g.name===groupName).txs.map(t => t.id));
+    setBulkCat({ fromCat: groupName, toCat: groupName, txIds: ids });
+  }
+  function toggleBulkTx(id){
+    setBulkCat(prev => {
+      if (!prev) return prev;
+      const next = new Set(prev.txIds);
+      if (next.has(id)) next.delete(id); else next.add(id);
+      return { ...prev, txIds: next };
+    });
+  }
+  function applyBulk(){
+    if (!bulkCat || bulkCat.toCat === bulkCat.fromCat) { setBulkCat(null); return; }
+    setReviewed(prev => prev.map(t => bulkCat.txIds.has(t.id) ? {...t, categorie: bulkCat.toCat} : t));
+    setBulkCat(null);
+  }
+
+  const toImport = reviewed.filter(t => !duplicateIds.has(t.id));
+  const hasResults = reviewed.length > 0;
+  const isUnknownFormat = !bank;
+
+  return (
+    <div style={{position:"fixed",inset:0,background:"rgba(0,0,0,0.5)",zIndex:200,display:"flex",flexDirection:"column",justifyContent:"flex-end"}}>
+      <div style={{background:"white",borderRadius:"20px 20px 0 0",maxHeight:"90vh",display:"flex",flexDirection:"column"}}>
+        {/* Header */}
+        <div style={{padding:"14px 18px 10px",borderBottom:"1px solid #F0F4F8"}}>
+          <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",gap:10}}>
+            <div>
+              <div style={{fontSize:16,fontWeight:800,color:"#1F4E79"}}>Import controleren</div>
+              <div style={{fontSize:11,color:"#9AA5B4",marginTop:2}}>
+                {fileName && <span>{fileName} · </span>}
+                {bank
+                  ? <span>{BANK_PARSERS[bank]?.label || bank} herkend · {reviewed.length} transacties</span>
+                  : <span style={{color:"#C0392B",fontWeight:600}}>Formaat niet herkend</span>}
+                {dupTxs.length > 0 && <span> · <b>{dupTxs.length} duplicaten</b></span>}
+              </div>
+            </div>
+            <select value={bank || ""} onChange={e=>reparseWithBank(e.target.value || null)}
+              style={{fontSize:11,border:"1px solid #E0E6ED",borderRadius:6,padding:"4px 6px",background:"white",color:"#2C3E50"}}>
+              <option value="">Kies bank…</option>
+              {Object.entries(BANK_PARSERS).map(([k,v]) => <option key={k} value={k}>{v.label}</option>)}
+            </select>
+          </div>
+          {isUnknownFormat && (
+            <div style={{marginTop:8,padding:"8px 10px",background:"#FEE",borderRadius:8,fontSize:11,color:"#C0392B"}}>
+              Kies rechtsboven handmatig de bank om het bestand te lezen.
+            </div>
+          )}
+          {dupTxs.length > 0 && dupTxs.length <= 10 && (
+            <div style={{marginTop:8,padding:"8px 10px",background:"#FEF3CD",borderRadius:8,fontSize:11,color:"#856404"}}>
+              ⚠️ {dupTxs.length} mogelijke duplicaten. Vink aan om individueel over te slaan.
+            </div>
+          )}
+        </div>
+
+        {/* Lijst */}
+        <div style={{flex:1,overflowY:"auto",padding:"8px 14px"}}>
+          {!hasResults && !isUnknownFormat && <div style={{textAlign:"center",color:"#9AA5B4",padding:40,fontSize:13}}>Geen transacties in dit bestand.</div>}
+          {groups.map(g => {
+            const catDef = cats.find(c => c.name === g.name);
+            const isExpanded = expandedGroups.has(g.name);
+            const dupInGroup = g.txs.filter(t => existingKeys.has(`${t.datum}|${t.naam}|${t.bedrag.toFixed(2)}`));
+            return (
+              <div key={g.name} style={{marginBottom:10,border:"1px solid #F0F4F8",borderRadius:10,overflow:"hidden",background:"#F8FAFB"}}>
+                {/* Groepsheader */}
+                <div onClick={()=>toggleGroup(g.name)}
+                  style={{display:"flex",alignItems:"center",gap:8,padding:"9px 12px",cursor:"pointer",background:g.name==="Onbekend"?"#FFF4D6":"white"}}>
+                  <div style={{width:28,height:28,borderRadius:8,background:catDef?.color ?? "#E8ECF0",display:"flex",alignItems:"center",justifyContent:"center",fontSize:14}}>
+                    {catDef?.icon ?? (g.name==="Onbekend"?"❓":"💶")}
+                  </div>
+                  <div style={{flex:1,fontSize:13,fontWeight:700,color:g.name==="Onbekend"?"#856404":"#2C3E50"}}>
+                    {g.name} <span style={{color:"#9AA5B4",fontWeight:500}}>· {g.txs.length}</span>
+                    {dupInGroup.length > 0 && <span style={{color:"#C0392B",fontWeight:600,fontSize:11,marginLeft:6}}>· {dupInGroup.length} dup</span>}
+                  </div>
+                  <button onClick={(e)=>{e.stopPropagation();openBulk(g.name);}}
+                    style={{padding:"3px 9px",borderRadius:12,border:"1px solid #E0E6ED",background:"white",color:"#1F4E79",fontSize:11,fontWeight:600,cursor:"pointer"}}>
+                    Bulk ↻
+                  </button>
+                  <span style={{fontSize:10,color:"#9AA5B4",marginLeft:6}}>{isExpanded?"▲":"▼"}</span>
+                </div>
+                {/* Transacties */}
+                {isExpanded && g.txs.map(t => {
+                  const isDup = existingKeys.has(`${t.datum}|${t.naam}|${t.bedrag.toFixed(2)}`);
+                  const skipped = duplicateIds.has(t.id);
+                  return (
+                    <div key={t.id} style={{padding:"8px 12px",borderTop:"1px solid #F0F4F8",display:"flex",alignItems:"center",gap:8,background:skipped?"#F5F5F5":"white",opacity:skipped?0.55:1}}>
+                      {isDup && (
+                        <input type="checkbox" checked={!skipped} onChange={()=>toggleDup(t.id)}
+                          title={skipped?"Overslaan":"Meenemen"}
+                          style={{width:16,height:16,accentColor:"#1F4E79",cursor:"pointer"}} />
+                      )}
+                      <div style={{flex:1,overflow:"hidden"}}>
+                        <div style={{fontSize:12,fontWeight:600,color:"#2C3E50",whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}}>
+                          {t.naam}
+                          {isDup && <span style={{marginLeft:6,fontSize:9,fontWeight:700,color:"#C0392B",background:"#FEE",padding:"1px 5px",borderRadius:4}}>DUP</span>}
+                        </div>
+                        <div style={{fontSize:10,color:"#9AA5B4"}}>{fmtTxDate(t.datum)} · {t.afBij==="Bij"?"+":"−"}€{fmt(Math.abs(t.bedrag))}</div>
+                      </div>
+                      <select value={t.categorie} onChange={e=>changeCat(t.id,e.target.value)}
+                        style={{fontSize:11,border:"1px solid #E0E6ED",borderRadius:6,padding:"3px 5px",color:"#2C3E50",background:"white",maxWidth:130}}>
+                        {allCatNames.map(c=><option key={c} value={c}>{c}</option>)}
+                      </select>
+                    </div>
+                  );
+                })}
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Footer */}
+        <div style={{padding:"12px 14px",borderTop:"1px solid #F0F4F8",display:"flex",gap:10}}>
+          <button onClick={()=>setState(null)} style={{flex:1,padding:12,borderRadius:10,border:"1px solid #E0E6ED",background:"white",color:"#5A6A7A",fontSize:13,fontWeight:600}}>Annuleren</button>
+          <button onClick={confirm} disabled={toImport.length===0}
+            style={{flex:2,padding:12,borderRadius:10,border:"none",background:toImport.length===0?"#B0BEC5":"#1F4E79",color:"white",fontSize:13,fontWeight:700,cursor:toImport.length===0?"not-allowed":"pointer"}}>
+            Toevoegen ({toImport.length})
+          </button>
+        </div>
+      </div>
+
+      {/* Popup: >10 duplicaten */}
+      {showDupPrompt && (
+        <div style={{position:"fixed",inset:0,background:"rgba(0,0,0,0.5)",zIndex:300,display:"flex",alignItems:"center",justifyContent:"center",padding:20}}>
+          <div style={{background:"white",borderRadius:16,maxWidth:360,width:"100%",padding:"18px 20px",boxShadow:"0 10px 30px rgba(0,0,0,0.3)"}}>
+            <div style={{fontSize:16,fontWeight:800,color:"#1F4E79",marginBottom:10}}>{dupTxs.length} duplicaten gevonden</div>
+            <div style={{fontSize:13,color:"#2C3E50",lineHeight:1.5,marginBottom:14}}>
+              Je importeert veel transacties die al in de app staan (datum + naam + bedrag).
+            </div>
+            <div style={{display:"flex",flexDirection:"column",gap:8}}>
+              <button onClick={skipAllDups}
+                style={{padding:12,borderRadius:10,border:"none",background:"#1F4E79",color:"white",fontSize:13,fontWeight:700,cursor:"pointer"}}>
+                Duplicaten overslaan
+              </button>
+              <button onClick={keepAllDups}
+                style={{padding:12,borderRadius:10,border:"1px solid #E0E6ED",background:"white",color:"#2C3E50",fontSize:13,fontWeight:600,cursor:"pointer"}}>
+                Toch allemaal importeren
+              </button>
+              <button onClick={()=>{setShowDupPrompt(false);setState(null);}}
+                style={{padding:10,borderRadius:10,border:"none",background:"transparent",color:"#C0392B",fontSize:12,fontWeight:600,cursor:"pointer"}}>
+                Import afbreken
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Bulk modal */}
+      {bulkCat && (
+        <div style={{position:"fixed",inset:0,background:"rgba(0,0,0,0.5)",zIndex:310,display:"flex",alignItems:"flex-end",justifyContent:"center"}}
+             onClick={e=>{if(e.target===e.currentTarget)setBulkCat(null);}}>
+          <div style={{background:"white",borderRadius:"20px 20px 0 0",maxWidth:480,width:"100%",maxHeight:"80vh",display:"flex",flexDirection:"column"}}>
+            <div style={{padding:"14px 18px 10px",borderBottom:"1px solid #F0F4F8"}}>
+              <div style={{fontSize:15,fontWeight:800,color:"#1F4E79"}}>Bulk categorie wijzigen</div>
+              <div style={{fontSize:11,color:"#9AA5B4",marginTop:2}}>Van: <b>{bulkCat.fromCat}</b></div>
+            </div>
+            <div style={{padding:"10px 14px",borderBottom:"1px solid #F0F4F8",display:"flex",alignItems:"center",gap:8}}>
+              <span style={{fontSize:11,color:"#9AA5B4"}}>Naar:</span>
+              <select value={bulkCat.toCat} onChange={e=>setBulkCat(prev=>({...prev,toCat:e.target.value}))}
+                style={{flex:1,fontSize:12,border:"1px solid #E0E6ED",borderRadius:6,padding:"5px 7px",background:"white",color:"#2C3E50"}}>
+                {allCatNames.map(c=><option key={c} value={c}>{c}</option>)}
+              </select>
+            </div>
+            <div style={{flex:1,overflowY:"auto",padding:"8px 14px"}}>
+              <div style={{fontSize:11,color:"#9AA5B4",marginBottom:6,fontWeight:600}}>Aangevinkt worden mee gewijzigd ({bulkCat.txIds.size}):</div>
+              {(() => {
+                const group = reviewed.filter(t => t.categorie === bulkCat.fromCat);
+                return group.map(t => (
+                  <label key={t.id} style={{display:"flex",alignItems:"center",gap:8,padding:"7px 4px",borderBottom:"1px solid #F8FAFB",cursor:"pointer"}}>
+                    <input type="checkbox" checked={bulkCat.txIds.has(t.id)} onChange={()=>toggleBulkTx(t.id)}
+                      style={{width:15,height:15,accentColor:"#1F4E79",cursor:"pointer"}} />
+                    <div style={{flex:1,overflow:"hidden"}}>
+                      <div style={{fontSize:12,fontWeight:600,color:"#2C3E50",whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}}>{t.naam}</div>
+                      <div style={{fontSize:10,color:"#9AA5B4"}}>{fmtTxDate(t.datum)} · €{fmt(Math.abs(t.bedrag))}</div>
+                    </div>
+                  </label>
+                ));
+              })()}
+            </div>
+            <div style={{padding:"12px 14px",borderTop:"1px solid #F0F4F8",display:"flex",gap:10}}>
+              <button onClick={()=>setBulkCat(null)}
+                style={{flex:1,padding:11,borderRadius:10,border:"1px solid #E0E6ED",background:"white",color:"#5A6A7A",fontSize:13,fontWeight:600}}>
+                Annuleren
+              </button>
+              <button onClick={applyBulk} disabled={bulkCat.toCat===bulkCat.fromCat || bulkCat.txIds.size===0}
+                style={{flex:2,padding:11,borderRadius:10,border:"none",
+                  background:(bulkCat.toCat===bulkCat.fromCat || bulkCat.txIds.size===0)?"#B0BEC5":"#1F4E79",
+                  color:"white",fontSize:13,fontWeight:700}}>
+                Verplaats {bulkCat.txIds.size}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ─── BOOT ────────────────────────────────────────────────────────────────────
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <AuthGate>{(session) => <App session={session} />}</AuthGate>
+);
+</script>
+</body>
+</html>
